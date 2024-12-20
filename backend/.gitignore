@@ -1,0 +1,30 @@
+# IntelliJ IDEA specific files
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Eclipse specific files
+*.classpath
+*.project
+*.settings/
+bin/
+tmp/
+
+# Target directory
+target/
+
+# Maven specific files
+.mvn/*
+!.mvn/wrapper
+.mvn/wrapper/*
+!.mvn/wrapper/maven-wrapper.properties
+
+# Compiled class file
+*.class
+
+# Ignore generated metadata files
+**/META-INF/**
+
+# Ignore dev settings
+application-**.yaml
