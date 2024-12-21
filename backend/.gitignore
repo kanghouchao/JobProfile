@@ -26,5 +26,5 @@ target/
 # Ignore generated metadata files
 **/META-INF/**
 
-# Ignore dev settings
+# Ignore settings
 application-**.yaml
