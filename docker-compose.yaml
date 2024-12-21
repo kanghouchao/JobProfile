@@ -1,0 +1,65 @@
+services:
+  traefik:
+    image: traefik:v3.3.0-rc1
+    container_name: traefik
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+    labels:
+      - "traefik.http.middlewares.strip-api-prefix.stripprefix.prefixes=/api"
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    depends_on:
+      - frontend
+      - backend
+
+  frontend:
+    image: job-profile-web:0.0.1
+    container_name: web
+    labels:
+      - "traefik.http.routers.backend.entrypoints=web"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  backend:
+    image: job-profile-api:0.0.1
+    container_name: api
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/${MYSQL_DATABASE}?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: ${MYSQL_USER}
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
+    labels:
+      - "traefik.http.routers.backend.rule=PathPrefix(`/api`)"
+      - "traefik.http.routers.backend.middlewares=strip-api-prefix"
+      - "traefik.http.routers.backend.entrypoints=web"
+    depends_on:
+      - database
+    restart: always
+    networks:
+      - app-network
+
+  database:
+    image: mysql:8.4.2
+    container_name: db
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: ture
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      - app-network
+
+volumes:
+  db-data:
+
+networks:
+  app-network:
+    driver: bridge

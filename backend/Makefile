@@ -1,2 +1,2 @@
 build:
-	docker buildx build --tag kang-tech-vault-api:0.0.1 .
+	docker buildx build --tag job-profile-api:0.0.1 .
