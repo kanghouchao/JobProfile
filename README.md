@@ -49,7 +49,7 @@ MYSQL_PASSWORD=password
 以下のコマンドでプロジェクトを起動します：
 
 ```bash
-make up
+make start
 ```
 
 ### 4. プロジェクトの停止
@@ -57,7 +57,7 @@ make up
 プロジェクトを停止するには、以下を実行してください：
 
 ```bash
-make down
+make shutown
 ```
 
 ## よくある質問
