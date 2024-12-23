@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createNewUser(String email, String password) {
+    public User createUser(String email, String password) {
         final User user = new User();
         user.setNickname(UUID.randomUUID().toString());
         user.setEmail(email);

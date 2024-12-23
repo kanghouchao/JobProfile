@@ -4,7 +4,6 @@ import com.kang.job.auth.entity.EmailVerificationToken;
 import com.kang.job.auth.exception.EmailAlreadyRegisteredException;
 import com.kang.job.auth.exception.TokenHasExpiredException;
 import com.kang.job.auth.exception.TokenHasUsedException;
-import com.kang.job.auth.exception.TokenNotExistedException;
 import com.kang.job.auth.service.EmailVerificationTokenService;
 import com.kang.job.auth.service.UserService;
 import com.kang.job.auth.service.ValidationService;
@@ -32,29 +31,24 @@ public class ValidationServiceImpl implements ValidationService {
     public void isEmailNotRegistered(String email) throws EmailAlreadyRegisteredException {
         if (this.userService.existsByEmail(email)) {
             throw new EmailAlreadyRegisteredException(
-                    this.messageSource.getMessage("error.EmailAlreadyRegisteredException",
-                            new Object[]{email},
-                            LocaleContextHolder.getLocale()));
+                this.messageSource.getMessage("error.EmailAlreadyRegisteredException",
+                    new Object[]{email},
+                    LocaleContextHolder.getLocale()));
         }
     }
 
     @Override
-    public void isTokenOK(String email, String token) {
+    public void isTokenOK(String token) {
         EmailVerificationToken verificationToken = this.tokenService.findByToken(token);
-        if (verificationToken == null
-                || !verificationToken.getEmail().equals(email)) {
-            throw new TokenNotExistedException(
-                    this.messageSource.getMessage("error.TokenNotExistedException",
-                            null, LocaleContextHolder.getLocale()));
-        } else if (verificationToken.getIsUsed()) {
+        if (verificationToken.getIsUsed()) {
             throw new TokenHasUsedException(
-                    this.messageSource.getMessage("error.TokenHasUsedException",
-                            null, LocaleContextHolder.getLocale())
+                this.messageSource.getMessage("error.TokenHasUsedException",
+                    null, LocaleContextHolder.getLocale())
             );
         } else if (verificationToken.getExpirationTime().isBefore(LocalDateTime.now())) {
             throw new TokenHasExpiredException(
-                    this.messageSource.getMessage("error.TokenHasExpiredException",
-                            null, LocaleContextHolder.getLocale())
+                this.messageSource.getMessage("error.TokenHasExpiredException",
+                    null, LocaleContextHolder.getLocale())
             );
         }
     }

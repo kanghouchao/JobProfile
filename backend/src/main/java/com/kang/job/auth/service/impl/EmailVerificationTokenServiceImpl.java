@@ -39,4 +39,9 @@ public class EmailVerificationTokenServiceImpl implements EmailVerificationToken
     public EmailVerificationToken findByToken(String token) {
         return this.tokenRepository.findByToken(token);
     }
+
+    @Override
+    public void setToUsed(EmailVerificationToken token) {
+        this.tokenRepository.setToUsed(token.getToken());
+    }
 }

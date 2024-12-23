@@ -39,8 +39,8 @@ public class RegisterController {
     }
 
     @PostMapping("create-user")
-    public ResponseEntity<Long> createNewUser(@Valid @RequestBody PasswordSettingRequest request) {
-        final User user = this.registerService.createNewUser(request.email(), request.token(), request.password());
+    public ResponseEntity<Long> createUser(@Valid @RequestBody PasswordSettingRequest request) {
+        final User user = this.registerService.createUser(request.token(), request.password());
         return ResponseEntity.ok(user.getId());
     }
 

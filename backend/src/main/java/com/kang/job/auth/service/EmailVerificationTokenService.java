@@ -16,4 +16,6 @@ public interface EmailVerificationTokenService {
     EmailVerificationToken createNewToken(String email, String token);
 
     EmailVerificationToken findByToken(String token);
+
+    void setToUsed(EmailVerificationToken token);
 }

@@ -16,5 +16,11 @@ public interface RegisterService {
      */
     void sendEmail(String email) throws MessagingException;
 
-    User createNewUser(String email, String token, String password);
+    /**
+     *
+     * @param token
+     * @param password
+     * @return
+     */
+    User createUser(String token, String password);
 }

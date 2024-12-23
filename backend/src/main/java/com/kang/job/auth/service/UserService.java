@@ -14,5 +14,5 @@ public interface UserService {
      */
     boolean existsByEmail(String email);
 
-    User createNewUser(String email, String password);
+    User createUser(String email, String password);
 }

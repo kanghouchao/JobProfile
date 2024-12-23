@@ -13,5 +13,5 @@ public interface ValidationService {
      */
     void isEmailNotRegistered(String email) throws EmailAlreadyRegisteredException;
 
-    void isTokenOK(String email, String token);
+    void isTokenOK(String token);
 }
