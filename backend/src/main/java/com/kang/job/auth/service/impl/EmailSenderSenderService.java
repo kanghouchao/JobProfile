@@ -1,10 +1,10 @@
 package com.kang.job.auth.service.impl;
 
 import com.kang.job.auth.service.EmailSenderService;
+import com.kang.job.config.JobProfileConfigurationProperties;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -22,8 +22,7 @@ import java.util.Locale;
 @RequiredArgsConstructor
 public class EmailSenderSenderService implements EmailSenderService {
 
-    @Value("${register.email.verify-baseurl:http://localhost/register/password-settings?token=}")
-    private String baseURL;
+    private final JobProfileConfigurationProperties properties;
 
     private final JavaMailSender javaMailSender;
 
@@ -60,7 +59,7 @@ public class EmailSenderSenderService implements EmailSenderService {
         final Context context = new Context();
         context.setVariable("lang", locale.getLanguage());
         context.setVariable("message", message);
-        context.setVariable("verificationLink", this.baseURL + token);
+        context.setVariable("verificationLink", this.properties.getRegisterVerifyEmailBaseLink() + token);
         return templateEngine.process("email_template", context);
     }
 

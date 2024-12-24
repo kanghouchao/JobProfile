@@ -3,8 +3,8 @@ package com.kang.job.auth.service.impl;
 import com.kang.job.auth.entity.EmailVerificationToken;
 import com.kang.job.auth.repository.EmailVerificationTokenRepository;
 import com.kang.job.auth.service.EmailVerificationTokenService;
+import com.kang.job.config.JobProfileConfigurationProperties;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,8 +17,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class EmailVerificationTokenServiceImpl implements EmailVerificationTokenService {
 
-    @Value("${register.token.time:3600}")
-    private Long expirationTime;
+    private final JobProfileConfigurationProperties properties;
 
     private final EmailVerificationTokenRepository tokenRepository;
 
@@ -31,7 +30,7 @@ public class EmailVerificationTokenServiceImpl implements EmailVerificationToken
         verificationToken.setToken(token);
         verificationToken.setRequestTime(now);
         verificationToken.setIsUsed(Boolean.FALSE);
-        verificationToken.setExpirationTime(now.plusSeconds(expirationTime));
+        verificationToken.setExpirationTime(now.plusSeconds(properties.getRegisterTokenExpirationSeconds()));
         return this.tokenRepository.save(verificationToken);
     }
 

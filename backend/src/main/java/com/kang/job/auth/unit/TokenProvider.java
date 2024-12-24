@@ -1,11 +1,11 @@
 package com.kang.job.auth.unit;
 
+import com.kang.job.config.JobProfileConfigurationProperties;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
@@ -14,11 +14,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
 
+/**
+ * @author kanghouchao
+ */
 @Component
 public class TokenProvider {
 
-    @Value("${login-token.expiration.time-millis:86400000}")
-    private Long expirationTimeMillis;
+    private final JobProfileConfigurationProperties properties;
 
     private static final String USERNAME = "username";
     private static final String AUTHORITIES = "authorities";
@@ -27,7 +29,8 @@ public class TokenProvider {
 
     private final JwtParser parser;
 
-    public TokenProvider() {
+    public TokenProvider(JobProfileConfigurationProperties properties) {
+        this.properties = properties;
         this.key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
         this.parser = Jwts.parser()
             .verifyWith(key)
@@ -42,7 +45,7 @@ public class TokenProvider {
             .add(AUTHORITIES, authorities)
             .and()
             .issuedAt(Date.from(now))
-            .expiration(Date.from(now.plusMillis(expirationTimeMillis)))
+            .expiration(Date.from(now.plusMillis(properties.getLoginTokenExpirationMills())))
             .signWith(key)
             .compact();
     }
@@ -69,7 +72,4 @@ public class TokenProvider {
         return parser.parseSignedClaims(token);
     }
 
-    public long getExpirationTimeMillis() {
-        return expirationTimeMillis;
-    }
 }

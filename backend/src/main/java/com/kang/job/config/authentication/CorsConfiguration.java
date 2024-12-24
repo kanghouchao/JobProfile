@@ -1,5 +1,7 @@
 package com.kang.job.config.authentication;
 
+import com.kang.job.config.JobProfileConfigurationProperties;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -11,7 +13,10 @@ import java.util.List;
  * @author kanghouchao
  */
 @Configuration
+@RequiredArgsConstructor
 public class CorsConfiguration {
+
+    private final JobProfileConfigurationProperties properties;
 
     private static final List<String> ALLOWED_HEADERS = List.of("Content-Type", "Authorization", "X-XSRF-TOKEN");
 
@@ -25,7 +30,7 @@ public class CorsConfiguration {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         final org.springframework.web.cors.CorsConfiguration configuration = new org.springframework.web.cors.CorsConfiguration();
-        configuration.addAllowedOriginPattern("http://localhost:*");
+        configuration.addAllowedOriginPattern(properties.getSiteDomain());
         configuration.setExposedHeaders(ALLOWED_EXPOSE);
         configuration.setAllowedMethods(ALLOWED_METHODS);
         configuration.setAllowedHeaders(ALLOWED_HEADERS);
