@@ -16,7 +16,7 @@ public class JobProfileConfigurationProperties {
 
     private String siteDomain = "https://www.job-profile.com";
 
-    private String registerVerifyEmailBaseLink = siteDomain + "/password-settings?token=";
+    private String registerVerifyEmailBaseLink = siteDomain + "/password-setting?token=";
 
     private Long loginTokenExpirationMills = 60 * 60 * 1000L;
 
