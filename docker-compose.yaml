@@ -22,7 +22,7 @@ services:
     container_name: web
     labels:
       - "traefik.http.routers.frontend.entrypoints=web"
-      - "traefik.http.routers.frontend.rule=Host(`kang-vault.com`)"
+      - "traefik.http.routers.frontend.rule=Host(`www.job-profile.com`)"
     depends_on:
       - backend
     networks:
@@ -37,7 +37,7 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
     labels:
       - "traefik.http.routers.backend.entrypoints=web"
-      - "traefik.http.routers.backend.rule=Host(`kang-vault.com`) && PathPrefix(`/api`)"
+      - "traefik.http.routers.backend.rule=Host(`www.job-profile.com`) && PathPrefix(`/api`)"
       - "traefik.http.routers.backend.middlewares=strip-api-prefix"
     depends_on:
       - database
