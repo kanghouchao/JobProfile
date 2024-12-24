@@ -1,21 +1,18 @@
-package com.kang.job.config;
+package com.kang.job.config.authentication;
 
 import com.kang.job.auth.unit.TokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseCookie;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import java.io.IOException;
 import java.util.Collections;
-import java.util.Objects;
 
 /**
  * @author kanghouchao
@@ -33,40 +30,29 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
     }
 
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
-        throws AuthenticationException {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (Objects.isNull(authentication)
-            || authentication instanceof AnonymousAuthenticationToken
-            || !authentication.isAuthenticated()) {
-            return super.attemptAuthentication(request, response);
-        }
-        return authentication;
-    }
-
-    @Override
     protected void successfulAuthentication(
         HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String token;
-        if (authentication instanceof JwtAuthenticationToken) {
-            token = (String) authentication.getCredentials();
-        } else {
-            token = tokenProvider.generateToken(authResult.getName(), Collections.emptyList());
-        }
-        ResponseCookie cookie = ResponseCookie.from("token", token)
-            .httpOnly(true)
-            .secure(true)
-            .path("/")
-            .maxAge(tokenProvider.getExpirationTimeMillis())
-            .build();
-        response.addHeader("Set-Cookie", cookie.toString());
+        String token = tokenProvider.generateToken(authResult.getName(), Collections.emptyList());
+
+        response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_OK);
+        try {
+            response.getWriter().write("{\"token\": \"" + token + "\"}");
+        } catch (IOException e) {
+            log.error("Failed to write token to response body", e);
+        }
     }
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                               AuthenticationException failed) {
+        log.warn("Authentication failed for request: {}", request.getRequestURI(), failed);
+        response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        try {
+            response.getWriter().write("{\"message\": \"Authentication failed: " + failed.getMessage() + "\"}");
+        } catch (IOException e) {
+            log.error("Failed to write error response", e);
+        }
     }
 }

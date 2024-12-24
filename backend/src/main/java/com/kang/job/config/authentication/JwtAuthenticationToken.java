@@ -1,4 +1,4 @@
-package com.kang.job.config;
+package com.kang.job.config.authentication;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
