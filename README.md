@@ -42,6 +42,9 @@ cd JobProfile
 MYSQL_DATABASE=JOB_PROFILE
 MYSQL_USER=user
 MYSQL_PASSWORD=password
+SPRING_MAIL_USERNAME=mail@account.com //see also: https://support.google.com/mail/answer/185833?hl=en#
+SPRING_MAIL_PASSWORD=some password
+JOB_PROFILE_SITE_DOMAIN=http://www.job-profile.com
 ```
 
 ### 3. プロジェクトの起動
