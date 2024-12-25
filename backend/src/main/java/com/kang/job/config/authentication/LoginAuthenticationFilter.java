@@ -35,6 +35,7 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
         String token = tokenProvider.generateToken(authResult.getName(), Collections.emptyList());
 
         response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
         response.setStatus(HttpServletResponse.SC_OK);
         try {
             response.getWriter().write("{\"token\": \"" + token + "\"}");
@@ -48,6 +49,7 @@ public class LoginAuthenticationFilter extends UsernamePasswordAuthenticationFil
                                               AuthenticationException failed) {
         log.warn("Authentication failed for request: {}", request.getRequestURI(), failed);
         response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         try {
             response.getWriter().write("{\"message\": \"Authentication failed: " + failed.getMessage() + "\"}");
