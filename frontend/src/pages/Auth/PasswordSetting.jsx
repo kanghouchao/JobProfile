@@ -7,12 +7,11 @@ const PasswordSetting = () => {
   const navigate = useNavigate();
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [token, setToken] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const urlParams = new URLSearchParams(location.search);
-    setToken(urlParams.get('token'));
+    const token = urlParams.get('token');
     if (password === confirmPassword) {
       userService.createUser(JSON.stringify({'token': token, 'password': password }));
       navigate("/")

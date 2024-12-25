@@ -59,8 +59,19 @@ public class EmailSenderSenderService implements EmailSenderService {
         final Context context = new Context();
         context.setVariable("lang", locale.getLanguage());
         context.setVariable("message", message);
-        context.setVariable("verificationLink", this.properties.getRegisterVerifyEmailBaseLink() + token);
+        context.setVariable("verificationLink", this.createVerificationLink(token));
         return templateEngine.process("email_template", context);
+    }
+
+    /**
+     * scheme://domain/password-setting?token=****
+     *
+     * @param token token
+     * @return scheme://domain/password-setting?token=****
+     */
+    private String createVerificationLink(final String token) {
+        return this.properties.getSiteScheme() + "://" + this.properties.getSiteDomain() +
+            "/password-setting?token=" + token;
     }
 
     record EmailMessage(String subject,

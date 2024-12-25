@@ -16,5 +16,5 @@ public interface EmailVerificationTokenRepository extends JpaRepository<EmailVer
 
     @Modifying
     @Query("UPDATE EmailVerificationToken e SET e.isUsed = true WHERE e.token = :token")
-    boolean setToUsed(String token);
+    void setToUsed(String token);
 }

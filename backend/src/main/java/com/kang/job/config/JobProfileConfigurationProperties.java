@@ -14,9 +14,9 @@ public class JobProfileConfigurationProperties {
 
     private Long registerTokenExpirationSeconds = 15 * 60L;
 
-    private String siteDomain = "https://www.job-profile.com";
+    private String siteScheme = "http";
 
-    private String registerVerifyEmailBaseLink = siteDomain + "/password-setting?token=";
+    private String siteDomain = "www.job-profile.com";
 
     private Long loginTokenExpirationMills = 60 * 60 * 1000L;
 
