@@ -1,5 +1,6 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { AlertProvider } from "./context/AlertContext"; 
 import Home from "./pages/Home";
 import ResumeForm from "./pages/Resume";
 import Register, { Login, PasswordSetting, RegisterSuccess } from "./pages/Auth";
@@ -21,7 +22,11 @@ const router = createBrowserRouter(
 );
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <AlertProvider>
+      <RouterProvider router={router} />
+    </AlertProvider>
+  );
 };
 
 export default App;

@@ -1,4 +1,4 @@
-import httpClient from '../httpService';
+import httpClient from '../../config/HttpClinet';
 
 const userService = {
   login: (loginData) => httpClient.postForm('login', loginData),

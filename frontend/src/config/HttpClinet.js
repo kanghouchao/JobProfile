@@ -13,32 +13,24 @@ const httpClient = axios.create({
 httpClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
-
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-
     return config;
   },
   (error) => Promise.reject(error)
 );
 
+const errorHandlers = [];
+export const addErrorHandler = (handler) => {
+  errorHandlers.push(handler);
+};
+
 httpClient.interceptors.response.use(
   (response) => response.data,
   (error) => {
     const { response } = error;
-    if (response) {
-      const errorMessages = {
-        400: '请求参数错误',
-        401: '认证失败',
-        403: '无权访问',
-        404: '资源不存在',
-        500: '服务器错误',
-      };
-      console.error(errorMessages[response.status] || '未知错误');
-    } else {
-      console.error('网络连接失败');
-    }
+    errorHandlers.forEach((handler) => handler(response));
     return Promise.reject(error);
   }
 );
