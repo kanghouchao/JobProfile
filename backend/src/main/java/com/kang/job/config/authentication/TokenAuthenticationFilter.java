@@ -1,6 +1,5 @@
 package com.kang.job.config.authentication;
 
-import com.kang.job.auth.unit.TokenProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,7 +36,6 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
 
             if (Objects.nonNull(username) && Objects.isNull(SecurityContextHolder.getContext().getAuthentication())) {
                 UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-
                 if (userDetails.isEnabled() && this.tokenProvider.isTokenValid(token, username)) {
                     Authentication authentication = new JwtAuthenticationToken(token, userDetails);
                     authentication.setAuthenticated(true);

@@ -7,7 +7,6 @@ import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,10 +16,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * 登録のためのアクション
+ *
+ * <p>
+ * 1.ユーズにもらったメールアドレスにメールを送って、メールの中にパスワードを設定できるリンクを含めている
+ * 2.ユーズがそのリンクをクリックして、パスワードを設定して、新しいユーズを作って登録完了だ
+ * </p>
+ *
  * @author kanghouchao
  */
-
-@Log4j2
 @Validated
 @RestController
 @RequestMapping("register")

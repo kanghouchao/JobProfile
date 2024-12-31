@@ -1,4 +1,4 @@
-package com.kang.job.auth.unit;
+package com.kang.job.config.authentication;
 
 import com.kang.job.config.JobProfileConfigurationProperties;
 import io.jsonwebtoken.Jwts;
@@ -6,10 +6,12 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.time.Instant;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
@@ -37,7 +39,7 @@ public class TokenProvider {
             .build();
     }
 
-    public String generateToken(String username, List<String> authorities) {
+    public String generateToken(String username, Collection<? extends GrantedAuthority> authorities) {
         Instant now = Instant.now();
         return Jwts.builder()
             .claims()
