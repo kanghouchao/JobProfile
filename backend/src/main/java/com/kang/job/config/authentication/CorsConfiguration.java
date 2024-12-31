@@ -30,7 +30,7 @@ public class CorsConfiguration {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         final org.springframework.web.cors.CorsConfiguration configuration = new org.springframework.web.cors.CorsConfiguration();
-        configuration.addAllowedOriginPattern(properties.getSiteDomain());
+        configuration.addAllowedOriginPattern(properties.getSiteScheme() + "://" + properties.getSiteDomain());
         configuration.setExposedHeaders(ALLOWED_EXPOSE);
         configuration.setAllowedMethods(ALLOWED_METHODS);
         configuration.setAllowedHeaders(ALLOWED_HEADERS);
