@@ -11,7 +11,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await userService.login({ username, password });
-      const token = response.token;
+      const token = response.data.token;
       localStorage.setItem('token', token);
       navigate('/');
     } catch (error) {
