@@ -1,6 +1,7 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
+import ResumeForm from "./pages/Resume";
 import Register, { Login, PasswordSetting, RegisterSuccess } from "./pages/Auth";
 
 const router = createBrowserRouter(
@@ -10,6 +11,7 @@ const router = createBrowserRouter(
     { path: "/login", element: <Login /> },
     { path: "/password-setting", element: <PasswordSetting /> },
     { path: "/register-success", element: <RegisterSuccess /> },
+    { path: "/resume", element: <ResumeForm /> },
   ],
   {
     future: {
