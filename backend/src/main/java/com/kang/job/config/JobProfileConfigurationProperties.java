@@ -14,7 +14,7 @@ public class JobProfileConfigurationProperties {
 
     private Long registerTokenExpirationSeconds = 15 * 60L;
 
-    private String siteScheme = "http";
+    private String siteScheme = "https";
 
     private String siteDomain = "www.job-profile.com";
 
