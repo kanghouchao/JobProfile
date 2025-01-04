@@ -1,6 +1,6 @@
 package com.kang.job.auth.service;
 
-import com.kang.job.auth.entity.EmailVerificationToken;
+import com.kang.job.auth.user.model.RegistrationToken;
 
 /**
  * @author kanghouchao
@@ -13,9 +13,9 @@ public interface EmailVerificationTokenService {
      * @param email email
      * @param token
      */
-    EmailVerificationToken createNewToken(String email, String token);
+    RegistrationToken createNewToken(String email, String token);
 
-    EmailVerificationToken findByToken(String token);
+    RegistrationToken findByToken(String token);
 
-    void setToUsed(EmailVerificationToken token);
+    void setToUsed(RegistrationToken token);
 }

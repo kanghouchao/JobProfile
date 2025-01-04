@@ -1,6 +1,6 @@
 package com.kang.job.auth.service;
 
-import com.kang.job.auth.exception.EmailAlreadyRegisteredException;
+import com.kang.job.auth.domain.exception.EmailAlreadyRegisteredException;
 
 /**
  * @author kanghouchao

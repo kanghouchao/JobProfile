@@ -1,6 +1,6 @@
 package com.kang.job.auth.service;
 
-import com.kang.job.auth.entity.User;
+import com.kang.job.auth.domain.model.Account;
 import jakarta.mail.MessagingException;
 
 /**
@@ -22,5 +22,5 @@ public interface RegisterService {
      * @param password
      * @return
      */
-    User createUser(String token, String password);
+    Account createUser(String token, String password);
 }

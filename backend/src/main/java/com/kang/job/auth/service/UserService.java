@@ -1,6 +1,6 @@
 package com.kang.job.auth.service;
 
-import com.kang.job.auth.entity.User;
+import com.kang.job.auth.domain.model.Account;
 
 /**
  * @author kanghouchao
@@ -14,5 +14,5 @@ public interface UserService {
      */
     boolean existsByEmail(String email);
 
-    User createUser(String email, String password);
+    Account createUser(String email, String password);
 }

@@ -1,9 +1,9 @@
 package com.kang.job.auth.service.impl;
 
-import com.kang.job.auth.entity.EmailVerificationToken;
-import com.kang.job.auth.exception.EmailAlreadyRegisteredException;
-import com.kang.job.auth.exception.TokenHasExpiredException;
-import com.kang.job.auth.exception.TokenHasUsedException;
+import com.kang.job.auth.user.model.RegistrationToken;
+import com.kang.job.auth.domain.exception.EmailAlreadyRegisteredException;
+import com.kang.job.auth.domain.exception.TokenHasExpiredException;
+import com.kang.job.auth.domain.exception.TokenHasUsedException;
 import com.kang.job.auth.service.EmailVerificationTokenService;
 import com.kang.job.auth.service.UserService;
 import com.kang.job.auth.service.ValidationService;
@@ -39,7 +39,7 @@ public class ValidationServiceImpl implements ValidationService {
 
     @Override
     public void isTokenOK(String token) {
-        EmailVerificationToken verificationToken = this.tokenService.findByToken(token);
+        RegistrationToken verificationToken = this.tokenService.findByToken(token);
         if (verificationToken.getIsUsed()) {
             throw new TokenHasUsedException(
                 this.messageSource.getMessage("error.TokenHasUsedException",

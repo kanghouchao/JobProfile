@@ -1,6 +1,6 @@
 package com.kang.job.auth.service.impl;
 
-import com.kang.job.auth.repository.UserRepository;
+import com.kang.job.auth.infrastructure.repository.JpaUserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -15,12 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 @AllArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UserRepository userRepository;
+    private final JpaUserRepository jpaUserRepository;
 
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        final UserDetails user = this.userRepository.getUserByEmail(email);
+        final UserDetails user = this.jpaUserRepository.getUserByEmail(email);
         if (user == null) {
             throw new UsernameNotFoundException(email);
         }

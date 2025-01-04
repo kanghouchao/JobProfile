@@ -1,9 +1,9 @@
 package com.kang.job.auth.service.impl;
 
-import com.kang.job.auth.entity.EmailVerificationToken;
-import com.kang.job.auth.repository.EmailVerificationTokenRepository;
+import com.kang.job.auth.user.model.RegistrationToken;
+import com.kang.job.auth.infrastructure.repository.EmailVerificationTokenRepository;
 import com.kang.job.auth.service.EmailVerificationTokenService;
-import com.kang.job.config.JobProfileConfigurationProperties;
+import com.kang.job.common.config.JobProfileConfigurationProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,9 +23,9 @@ public class EmailVerificationTokenServiceImpl implements EmailVerificationToken
 
     @Override
     @Transactional
-    public EmailVerificationToken createNewToken(String email, String token) {
+    public RegistrationToken createNewToken(String email, String token) {
         LocalDateTime now = LocalDateTime.now();
-        EmailVerificationToken verificationToken = new EmailVerificationToken();
+        RegistrationToken verificationToken = new RegistrationToken();
         verificationToken.setEmail(email);
         verificationToken.setToken(token);
         verificationToken.setRequestTime(now);
@@ -35,12 +35,12 @@ public class EmailVerificationTokenServiceImpl implements EmailVerificationToken
     }
 
     @Override
-    public EmailVerificationToken findByToken(String token) {
+    public RegistrationToken findByToken(String token) {
         return this.tokenRepository.findByToken(token);
     }
 
     @Override
-    public void setToUsed(EmailVerificationToken token) {
+    public void setToUsed(RegistrationToken token) {
         this.tokenRepository.setToUsed(token.getToken());
     }
 }

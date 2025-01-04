@@ -1,7 +1,7 @@
 package com.kang.job.auth.service.impl;
 
 import com.kang.job.auth.service.EmailSenderService;
-import com.kang.job.config.JobProfileConfigurationProperties;
+import com.kang.job.common.config.JobProfileConfigurationProperties;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;

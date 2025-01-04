@@ -1,7 +1,7 @@
 package com.kang.job.auth.service.impl;
 
-import com.kang.job.auth.entity.EmailVerificationToken;
-import com.kang.job.auth.entity.User;
+import com.kang.job.auth.domain.model.Account;
+import com.kang.job.auth.user.model.RegistrationToken;
 import com.kang.job.auth.service.EmailSenderService;
 import com.kang.job.auth.service.EmailVerificationTokenService;
 import com.kang.job.auth.service.RegisterService;
@@ -40,9 +40,9 @@ public class RegisterServiceImpl implements RegisterService {
 
     @Override
     @Transactional
-    public User createUser(final String token, final String password) {
+    public Account createUser(final String token, final String password) {
         this.validationService.isTokenOK(token);
-        final EmailVerificationToken evt = this.tokenService.findByToken(token);
+        final RegistrationToken evt = this.tokenService.findByToken(token);
         this.tokenService.setToUsed(evt);
         return this.userService.createUser(evt.getEmail(), password);
     }
