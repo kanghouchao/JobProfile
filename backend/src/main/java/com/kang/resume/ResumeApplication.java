@@ -1,4 +1,4 @@
-package com.kang.job;
+package com.kang.resume;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,10 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author kanghouchao
  */
 @SpringBootApplication
-public class JobProfileApplication {
+public class ResumeApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(JobProfileApplication.class, args);
+        SpringApplication.run(ResumeApplication.class, args);
     }
 
 }

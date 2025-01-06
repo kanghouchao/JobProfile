@@ -10,9 +10,9 @@
     <relativePath/>
   </parent>
   <groupId>com.kang</groupId>
-  <artifactId>JobProfile</artifactId>
+  <artifactId>Resume</artifactId>
   <version>0.0.1</version>
-  <name>JobProfile</name>
+  <name>Resume</name>
   <url/>
   <developers>
     <developer>

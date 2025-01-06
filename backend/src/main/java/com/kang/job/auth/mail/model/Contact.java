@@ -1,8 +1,0 @@
-package com.kang.job.auth.mail.model;
-
-/**
- * @author kanghouchao
- */
-public record Contact(String appellation, String mailAddress) {
-
-}

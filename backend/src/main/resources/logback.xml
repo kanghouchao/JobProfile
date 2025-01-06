@@ -1,7 +1,7 @@
 <configuration>
   <property name="LOG_PATH" value="logs"/>
 
-<!--  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--  <appender variables="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
 <!--    <file>${LOG_PATH}/demonstration.log</file>-->
 <!--    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
 <!--      <fileNamePattern>${LOG_PATH}/demonstration-%d{yyyy-MM-dd}.log</fileNamePattern>-->
@@ -18,7 +18,7 @@
     </encoder>
   </appender>
 
-  <logger name="com.kang.job" level="DEBUG"/>
+  <logger name="com.kang.resume" level="DEBUG"/>
 
   <root level="INFO">
     <appender-ref ref="STDOUT"/>
