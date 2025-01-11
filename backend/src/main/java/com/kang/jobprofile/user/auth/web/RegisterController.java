@@ -1,6 +1,6 @@
 package com.kang.jobprofile.user.auth.web;
 
-import com.kang.jobprofile.mail.application.Sender;
+import com.kang.jobprofile.mail.application.MailSenderHandle;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 class RegisterController {
 
-    private final Sender sender;
+    private final MailSenderHandle mailSenderHandle;
 
     @PutMapping("auth/register")
     void sendMail(@RequestParam String email) {
-        this.sender.sendRegisterMail(email);
+        this.mailSenderHandle.sendRegisterMail(email);
     }
 
 }
