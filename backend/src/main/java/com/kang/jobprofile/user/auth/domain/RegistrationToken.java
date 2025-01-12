@@ -1,4 +1,4 @@
-package com.kang.jobprofile.mail.model;
+package com.kang.jobprofile.user.auth.domain;
 
 import java.time.LocalDateTime;
 

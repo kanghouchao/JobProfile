@@ -1,6 +1,6 @@
-package com.kang.jobprofile.mail.infrastructure;
+package com.kang.jobprofile.user.auth.infrastructure;
 
-import com.kang.jobprofile.mail.model.RegistrationToken;
+import com.kang.jobprofile.user.auth.domain.RegistrationToken;
 import org.springframework.stereotype.Repository;
 
 /**
