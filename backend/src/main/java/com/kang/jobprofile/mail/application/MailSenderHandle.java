@@ -6,6 +6,7 @@ import com.kang.jobprofile.mail.model.Mail;
 import com.kang.jobprofile.template.infrastructure.ThymeleafRenderer;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.event.EventListener;
 
 /**
  * @author kanghouchao
@@ -21,6 +22,7 @@ public class MailSenderHandle {
 
     private final ThymeleafRenderer thymeleafRenderer;
 
+    @EventListener
     public void sendRegisterMail(String to, String token) throws MessagingException {
         final Mail mail = new Mail(this.fromAddress, to,
             this.resourceBundleHandler.getRegistrationMailSubject(),
