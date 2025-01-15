@@ -1,0 +1,7 @@
+spring:
+  jpa:
+    show-sql: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/resume?allowPublicKeyRetrieval=true&useSSL=true&serverTimezone=UTC
+    username: kang
+    password: 3bQv7XyT

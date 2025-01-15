@@ -26,6 +26,7 @@ public class ThymeleafRenderer {
 
     public String getRegistrationMailCount(String token) {
         final Map<String, Object> model = new HashMap<>();
+        model.put("subject", resourceBundleHandler.getRegistrationMailSubject());
         model.put("greeting", resourceBundleHandler.getRegistrationMailGreeting());
         model.put("body", resourceBundleHandler.getRegistrationMailBody(token));
         model.put("notice", resourceBundleHandler.getRegistrationMailNotice());

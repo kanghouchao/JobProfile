@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Email</title>
+</head>
+<body>
+    <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+        <h2 th:text="${greeting}">Welcome to Our Service!</h2>
+        <p th:text="${greeting}">Thank you for signing up for our service. We're excited to have you on board!</p>
+        <p th:text="${body}">To complete your registration, please click the button below:</p>
+        <div style="margin: 20px 0;">
+            <a th:href="${activationLink}"
+               style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #fff; text-decoration: none; border-radius: 5px;">
+               Activate Your Account
+            </a>
+        </div>
+        <p th:text="${notice}">If you have any questions or need assistance, feel free to contact us.</p>
+        <p style="color: #999; font-size: 12px;" th:text="${footer}">This is an automated message. Please do not reply to this email.</p>
+    </div>
+</body>
+</html>
