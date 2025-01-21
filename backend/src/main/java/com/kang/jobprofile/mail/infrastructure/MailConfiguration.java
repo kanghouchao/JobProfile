@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.mail.javamail.JavaMailSender;
 
 /**
  * @author kanghouchao
@@ -15,17 +16,18 @@ import org.springframework.context.annotation.Configuration;
 @RequiredArgsConstructor
 public class MailConfiguration {
 
-    @Bean
-    public MailSenderHandle mailSenderHandle(MailSender mailSender,
-                                             MailProperties mailProperties,
-                                             ResourceBundleHandler resourceBundleHandler,
-                                             ThymeleafRenderer thymeleafRenderer) {
-        return new MailSenderHandle(mailProperties.getUsername(), mailSender, resourceBundleHandler, thymeleafRenderer);
-    }
+    private final MailProperties mailProperties;
 
     @Bean
-    public MailSender mailSender() {
-        return new MailSender();
+    public MailSenderHandle mailSenderHandle(MailSender mailSender,
+                                             ResourceBundleHandler resourceBundleHandler,
+                                             ThymeleafRenderer thymeleafRenderer) {
+        return new MailSenderHandle(this.mailProperties.getUsername(), mailSender, resourceBundleHandler, thymeleafRenderer);
+    }
+
+    @Bean(name = "myMailSender")
+    public MailSender mailSender(JavaMailSender javaMailSender) {
+        return new MailSender(javaMailSender);
     }
 
 }

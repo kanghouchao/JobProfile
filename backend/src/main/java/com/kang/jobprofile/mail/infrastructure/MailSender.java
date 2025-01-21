@@ -3,15 +3,17 @@ package com.kang.jobprofile.mail.infrastructure;
 import com.kang.jobprofile.mail.model.Mail;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
 /**
  * @author kanghouchao
  */
+@RequiredArgsConstructor
 public class MailSender {
 
-    private JavaMailSender javaMailSender;
+    private final JavaMailSender javaMailSender;
 
     public void sendMail(Mail mail) throws MessagingException {
         final MimeMessage mimeMessage = this.javaMailSender.createMimeMessage();

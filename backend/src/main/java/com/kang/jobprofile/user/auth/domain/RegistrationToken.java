@@ -1,13 +1,24 @@
 package com.kang.jobprofile.user.auth.domain;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 
 /**
  * @author kanghouchao
  */
-public record RegistrationToken(String email, @Id String token, LocalDateTime expiryTime) {
+@Data
+@Entity
+public class RegistrationToken {
+
+    private String email;
+
+    @Id
+    private String token;
+
+    private LocalDateTime expiryTime;
 
     public boolean isExpired() {
         return expiryTime.isBefore(LocalDateTime.now());

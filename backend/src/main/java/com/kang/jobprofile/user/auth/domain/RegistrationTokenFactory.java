@@ -9,6 +9,10 @@ import java.util.UUID;
 public class RegistrationTokenFactory {
 
     public static RegistrationToken create(String email) {
-        return new RegistrationToken(email, UUID.randomUUID().toString(), LocalDateTime.now());
+        RegistrationToken registrationToken = new RegistrationToken();
+        registrationToken.setEmail(email);
+        registrationToken.setToken(UUID.randomUUID().toString());
+        registrationToken.setExpiryTime(LocalDateTime.now().plusMinutes(15));
+        return registrationToken;
     }
 }
