@@ -11,13 +11,13 @@ const router = createBrowserRouter(
       element: <Layout />, 
       children: [
         { index: true, element: <Home /> },
-        { path: "register", element: <Register /> },
-        { path: "login", element: <Login /> },
-        { path: "password-setting", element: <PasswordSetting /> },
-        { path: "register-success", element: <RegisterSuccess /> },
         { path: "resume", element: <ResumeForm /> }
       ]
-    }
+    },
+    { path: "login", element: <Login /> },
+    { path: "register", element: <Register /> },
+    { path: "password-setting", element: <PasswordSetting /> },
+    { path: "register-success", element: <RegisterSuccess /> }
   ],
   {
     future: {
