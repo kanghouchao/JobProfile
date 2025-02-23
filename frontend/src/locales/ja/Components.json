@@ -1,3 +1,9 @@
 {
-    "message": "メッセージ"
+    "siteTitle": "履歴システム",
+    "resume": "履歴書",
+    "jobProfile": "職務経歴書",
+    "pay": "支払う",
+    "logout": "ログアウト",
+    "message": "新しいメッセージ",
+    "welcome": "ようこそ!"
 }

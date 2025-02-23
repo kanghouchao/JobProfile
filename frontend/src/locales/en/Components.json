@@ -1,3 +1,9 @@
 {
-    "message": "Messages"
+    "siteTitle": "Resume System",
+    "resume": "Resume",
+    "jobProfile": "Job Profile",
+    "pay": "Pay",
+    "logout": "Logout",
+    "message": "New Messages",
+    "welcome": "Welcome You!"
 }
