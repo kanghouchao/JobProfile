@@ -1,22 +1,43 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import en from '../locales/en.json';
-import zh from '../locales/zh.json';
-import ja from '../locales/ja.json';
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
 
 const resources = {
-    jp: ja,
-    en: en,
-    zh: zh
+  en: {
+    components: require("../locales/en/Components.json"),
+    pages: require("../locales/en/Pages.json"),
+    auth: require("../locales/en/Auth.json"),
+  },
+  zh: {
+    components: require("../locales/zh/Components.json"),
+    pages: require("../locales/zh/Pages.json"),
+    auth: require("../locales/zh/Auth.json"),
+  },
+  ja: {
+    components: require("../locales/ja/Components.json"),
+    pages: require("../locales/ja/Pages.json"),
+    auth: require("../locales/ja/Auth.json"),
+  },
 };
 
-i18n.use(initReactI18next).init({
+i18n
+  .use(LanguageDetector)
+  .use(initReactI18next)
+  .init({
     resources,
-    lng: 'ja',
-    fallbackLng: 'en',
-    interpolation: {
-        escapeValue: false,
+    backend: {
+      loadPath: "../locales/{{lng}}/{{ns}}.json",
     },
-});
+    preload: ["ja"],
+    fallbackLng: "ja",
+    debug: false,
+    interpolation: { escapeValue: false },
+    detection: {
+      order: ["localStorage", "navigator"],
+      caches: ["localStorage"],
+    },
+    ns: ["components", "pages", "auth"],
+    defaultNS: "auth",
+  });
 
 export default i18n;
