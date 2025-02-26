@@ -1,0 +1,199 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-resume-tables
+      author: kanhouchou
+      changes:
+        - createTable:
+            tableName: resume
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: photo
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: name
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: name_katakana
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: birthday
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: age
+                  type: int
+                  constraints:
+                    nullable: false
+              - column:
+                  name: address
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: address_katakana
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: contact_info
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: gender
+                  type: varchar(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: self_pr
+                  type: text
+                  constraints:
+                    nullable: true
+              - column:
+                  name: desired_notes
+                  type: text
+                  constraints:
+                    nullable: true
+
+        - createTable:
+            tableName: education_history
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: resume_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_education_resume
+                    references: resume(id)
+              - column:
+                  name: institution
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: degree
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: start_date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: end_date
+                  type: date
+                  constraints:
+                    nullable: true
+
+        - createTable:
+            tableName: work_experience
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: resume_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_work_resume
+                    references: resume(id)
+              - column:
+                  name: company_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: company_description
+                  type: text
+                  constraints:
+                    nullable: true
+              - column:
+                  name: employee_count
+                  type: int
+                  constraints:
+                    nullable: true
+              - column:
+                  name: is_public
+                  type: boolean
+                  constraints:
+                    nullable: true
+              - column:
+                  name: position
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: start_date
+                  type: date
+                  constraints:
+                    nullable: false
+              - column:
+                  name: end_date
+                  type: date
+                  constraints:
+                    nullable: true
+              - column:
+                  name: job_description
+                  type: text
+                  constraints:
+                    nullable: true
+
+        - createTable:
+            tableName: certifications
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: resume_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_certifications_resume
+                    references: resume(id)
+              - column:
+                  name: certification_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: issued_by
+                  type: varchar(255)
+                  constraints:
+                    nullable: true
+              - column:
+                  name: issue_date
+                  type: date
+                  constraints:
+                    nullable: true
