@@ -12,5 +12,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "job.profile.auth")
 public class AuthProperties {
 
-    private final String registerPageUrl;
+    private final String registerRouter;
 }

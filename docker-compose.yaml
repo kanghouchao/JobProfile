@@ -37,8 +37,9 @@ services:
       SPRING_DATASOURCE_PASSWORD: ${MYSQL_PASSWORD}
       SPRING_MAIL_USERNAME: ${SPRING_MAIL_USERNAME}
       SPRING_MAIL_PASSWORD: ${SPRING_MAIL_PASSWORD}
-      JOB_PROFILE_SITE_SECHEM: ${JOB_PROFILE_SITE_SECHEM}
+      JOB_PROFILE_SITE_SECHEME: ${JOB_PROFILE_SITE_SECHEME}
       JOB_PROFILE_SITE_DOMAIN: ${JOB_PROFILE_SITE_DOMAIN}
+      JOB_PROFILE_REGISTER_ROUTER: ${JOB_PROFILE_REGISTER_ROUTER}
     labels:
       - "traefik.http.routers.backend.entrypoints=web"
       - "traefik.http.routers.backend.rule=Host(`www.job-profile.com`) && PathPrefix(`/api`)"

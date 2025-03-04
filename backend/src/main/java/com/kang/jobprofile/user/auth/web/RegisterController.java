@@ -29,12 +29,12 @@ class RegisterController {
 
     @PutMapping("send-mail")
     void sendMail(@RequestParam @Email String email) {
-        String activationLink = websiteProperties.getScheme() + "://" + websiteProperties.getRemote()
-            +  authProperties.getRegisterPageUrl() + "?token=";
+        String activationLink = websiteProperties.getScheme() + "://" + websiteProperties.getDomain()
+            +  authProperties.getRegisterRouter() + "?token=";
         this.registrationService.mailVerification(email, activationLink);
     }
 
-    @PostMapping("setting-password")
+    @PostMapping("create-user")
     void settingPassword(String password) {
 
     }

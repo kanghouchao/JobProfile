@@ -2,8 +2,8 @@ import httpClient from '../../config/HttpClinet';
 
 const userService = {
   login: (loginData) => httpClient.postForm('login', loginData),
-  register: (email) => httpClient.postForm('register/send-email', {'email': email}),
-  createUser: (userData) => httpClient.post('register/create-user', userData),
+  register: (email) => httpClient.putForm('auth/register/send-mail', {'email': email}),
+  createUser: (userData) => httpClient.post('auth/register/create-user', userData),
 };
 
 export default userService;

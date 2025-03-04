@@ -9,10 +9,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @Getter
 @AllArgsConstructor
-@ConfigurationProperties(prefix = "job.profile.website")
+@ConfigurationProperties(prefix = "job.profile.site")
 public class WebsiteProperties {
 
-    private final String remote;
+    private final String domain;
 
     private final String scheme;
 

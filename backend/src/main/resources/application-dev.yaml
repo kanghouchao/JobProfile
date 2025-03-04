@@ -8,7 +8,7 @@ spring:
 job:
   profile:
     auth:
-      register-page-url: /setting-password
-    website:
+      register-router: /password-setting
+    site:
       scheme: http
-      remote: job-profile.com
+      domain: www.job-profile.com
