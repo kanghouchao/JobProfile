@@ -33,7 +33,7 @@ public class AuthConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        String[] allowedPaths = {"auth/register", "/error"};
+        String[] allowedPaths = {"auth/register/**", "/error"};
         http
             .csrf(AbstractHttpConfigurer::disable)
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))

@@ -7,6 +7,7 @@ import com.kang.jobprofile.user.auth.infrastructure.TokenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -19,13 +20,14 @@ public class RegistrationService {
 
     private final ApplicationEventPublisher applicationEventPublisher;
 
-    public void mailVerification(String email) {
-        RegistrationToken token = this.tokenRepository.findByEmail(email);
-        if (Objects.nonNull(token)) {
-            throw new IllegalArgumentException();
+    public void mailVerification(String email, String activationLink) {
+        if (Objects.nonNull(this.tokenRepository.findFirstByEmailAndExpiryTimeAfter(email, LocalDateTime.now()))) {
+            throw new IllegalArgumentException(email + " is not verify now, please try again");
         }
-        token = RegistrationTokenFactory.create(email);
+        final RegistrationToken token = RegistrationTokenFactory.create(email);
         this.tokenRepository.save(token);
-        this.applicationEventPublisher.publishEvent(new RegistrationMailSendEvent(token.getEmail(), token.getToken()));
+        this.applicationEventPublisher.publishEvent(
+            new RegistrationMailSendEvent(token.getEmail(), activationLink + token.getToken())
+        );
     }
 }

@@ -5,3 +5,10 @@ spring:
     url: jdbc:mysql://localhost:3306/resume?allowPublicKeyRetrieval=true&useSSL=true&serverTimezone=UTC
     username: kang
     password: 3bQv7XyT
+job:
+  profile:
+    auth:
+      register-page-url: /setting-password
+    website:
+      scheme: http
+      remote: job-profile.com

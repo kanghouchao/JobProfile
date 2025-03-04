@@ -2,6 +2,7 @@ package com.kang.jobprofile.template.infrastructure;
 
 import com.kang.jobprofile.i18n.infrastructure.ResourceBundleHandler;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
@@ -24,11 +25,15 @@ public class ThymeleafRenderer {
         return templateEngine.process(templateName, context);
     }
 
-    public String getRegistrationMailCount(String token) {
+    public String getRegistrationMailCount(String link) {
         final Map<String, Object> model = new HashMap<>();
+        model.put("lang", LocaleContextHolder.getLocale().getLanguage());
         model.put("subject", resourceBundleHandler.getRegistrationMailSubject());
+        model.put("title", resourceBundleHandler.getRegistrationMailTitle());
         model.put("greeting", resourceBundleHandler.getRegistrationMailGreeting());
-        model.put("body", resourceBundleHandler.getRegistrationMailBody(token));
+        model.put("body", resourceBundleHandler.getRegistrationMailBody());
+        model.put("link", link);
+        model.put("button", resourceBundleHandler.getRegistrationMailButton());
         model.put("notice", resourceBundleHandler.getRegistrationMailNotice());
         model.put("footer", resourceBundleHandler.getRegistrationMailFooter());
         return this.render("registration-mail-template", model);

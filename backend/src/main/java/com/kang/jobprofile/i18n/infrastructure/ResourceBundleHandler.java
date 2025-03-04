@@ -24,8 +24,8 @@ public class ResourceBundleHandler {
         return this.getMessage("registration.mail.greeting");
     }
 
-    public String getRegistrationMailBody(String token) {
-        return this.getMessage("registration.mail.body", token);
+    public String getRegistrationMailBody() {
+        return this.getMessage("registration.mail.body");
     }
 
     public String getRegistrationMailNotice() {
@@ -34,5 +34,13 @@ public class ResourceBundleHandler {
 
     public String getRegistrationMailFooter() {
         return this.getMessage("registration.mail.footer");
+    }
+
+    public String getRegistrationMailTitle() {
+        return this.getMessage("registration.mail.title");
+    }
+
+    public String getRegistrationMailButton() {
+        return this.getMessage("registration.mail.button");
     }
 }
