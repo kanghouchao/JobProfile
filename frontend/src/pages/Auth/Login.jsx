@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import userService from '../../services/auth/authService';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next";  
+import userService from '../../services/auth/authService';
 
 const Login = () => {
-  const { t } = useTranslation("auth");
+  const { t } = useTranslation('auth');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -22,14 +22,17 @@ const Login = () => {
   };
 
   return (
-    <div className="bg-gray-100 h-screen flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-96">
-        <h2 className="text-2xl font-bold text-center text-gray-700 mb-6">{t("title")}</h2>
+    <div className="flex h-screen">
 
-        <form onSubmit={handleLogin}>
+      <div className="hidden md:flex flex-1 bg-cover bg-center" style={{ backgroundImage: "url('/images/register-bg.png')" }}>
+      </div>
+      
+      <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-6 md:p-12">
+        <h2 className="text-3xl font-semibold mb-6">{t("login.title")}</h2>
+        <form onSubmit={handleLogin} className="w-full max-w-md">
           <div className="mb-4">
             <label htmlFor="username" className="block text-sm font-medium text-gray-600">
-              {t("username")}
+              {t("login.username")}
             </label>
             <input
               type="email"
@@ -44,7 +47,7 @@ const Login = () => {
 
           <div className="mb-6">
             <label htmlFor="password" className="block text-sm font-medium text-gray-600">
-              {t("password")}
+              {t("login.password")}
             </label>
             <input
               type="password"
@@ -61,15 +64,15 @@ const Login = () => {
             type="submit"
             className="w-full py-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            {t("login")}
+            {t("login.login")}
           </button>
         </form>
 
         <div className="mt-4 text-center">
           <p className="text-sm text-gray-600">
-            {t("haveAccount")}{'  '}
+            {t("login.haveAccount")} {' '}
             <a href="/register" className="text-blue-500 hover:text-blue-600">
-               {t("registerHere")}
+              {t("login.registerHere")}
             </a>
           </p>
         </div>
