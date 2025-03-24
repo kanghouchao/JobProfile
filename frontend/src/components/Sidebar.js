@@ -21,10 +21,10 @@ const Sidebar = () => {
             <Link to="/resume" className="block p-2">{t("resume")}</Link>
           </li>
           <li className="p-4 hover:bg-gray-700 cursor-pointer">
-            <Link to="/" className="block p-2">{t("jobProfile")}</Link>
+            <Link to="/job-history" className="block p-2">{t("jobProfile")}</Link>
           </li>
           <li className="p-4 hover:bg-gray-700 cursor-pointer">
-            <Link to="/" className="block p-2">{t("pay")}</Link>
+            <Link to="/pay" className="block p-2">{t("pay")}</Link>
           </li>
         </ul>
       </nav>
