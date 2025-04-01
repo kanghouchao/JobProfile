@@ -1,6 +1,8 @@
 package com.kang.jobprofile.user.auth.infrastructure;
 
 import com.kang.jobprofile.user.auth.application.RegistrationService;
+import com.kang.jobprofile.user.auth.service.RegistrationTokenService;
+import com.kang.jobprofile.user.auth.service.UserService;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,8 +23,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class AuthConfiguration {
 
     @Bean
-    public RegistrationService registrationService(ApplicationEventPublisher applicationEventPublisher, TokenRepository tokenRepository) {
-        return new RegistrationService(tokenRepository, applicationEventPublisher);
+    public RegistrationService registrationService(ApplicationEventPublisher applicationEventPublisher,
+                                                   UserService userService,
+                                                   RegistrationTokenService registrationTokenService) {
+        return new RegistrationService(registrationTokenService, userService, applicationEventPublisher);
     }
 
 

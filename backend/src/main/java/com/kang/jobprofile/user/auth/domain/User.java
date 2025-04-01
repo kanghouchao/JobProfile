@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,6 +17,7 @@ import java.util.Collection;
 import java.util.Collections;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
@@ -39,7 +41,7 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private LocalDateTime updatedAt = LocalDateTime.now();
 
-    private boolean enabled = true;
+//    private boolean enabled = true;
 
     public User(String email, String password, String provider) {
         this.email = email;
@@ -74,6 +76,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return enabled;
+        return true;
     }
 }

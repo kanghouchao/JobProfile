@@ -23,4 +23,8 @@ public class RegistrationToken {
     public boolean isExpired() {
         return expiryTime.isBefore(LocalDateTime.now());
     }
+
+    public boolean isNotExpired() {
+        return !isExpired();
+    }
 }

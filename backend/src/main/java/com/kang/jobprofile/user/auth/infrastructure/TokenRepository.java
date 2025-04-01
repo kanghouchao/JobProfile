@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -13,6 +15,11 @@ import java.time.LocalDateTime;
 @Repository
 public interface TokenRepository extends JpaRepository<RegistrationToken, Long> {
 
-    RegistrationToken findFirstByEmailAndExpiryTimeAfter(String email, LocalDateTime now);
+    List<RegistrationToken> findByEmail(String email);
 
+    Optional<RegistrationToken> findByToken(String token);
+
+    void deleteByToken(String token);
+
+    Optional<RegistrationToken> findByEmailAndToken(String email, String token);
 }

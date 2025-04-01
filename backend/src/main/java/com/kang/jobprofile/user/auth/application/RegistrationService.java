@@ -1,14 +1,13 @@
 package com.kang.jobprofile.user.auth.application;
 
+import com.kang.jobprofile.user.auth.application.dto.UserCreatorDTO;
 import com.kang.jobprofile.user.auth.domain.RegistrationMailSendEvent;
-import com.kang.jobprofile.user.auth.domain.RegistrationToken;
-import com.kang.jobprofile.user.auth.domain.RegistrationTokenFactory;
-import com.kang.jobprofile.user.auth.infrastructure.TokenRepository;
+import com.kang.jobprofile.user.auth.service.RegistrationTokenService;
+import com.kang.jobprofile.user.auth.service.UserService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 
-import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * @author kanghouchao
@@ -16,18 +15,24 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class RegistrationService {
 
-    private final TokenRepository tokenRepository;
+    private final RegistrationTokenService registrationTokenService;
+
+    private final UserService userService;
 
     private final ApplicationEventPublisher applicationEventPublisher;
 
-    public void mailVerification(String email, String activationLink) {
-        if (Objects.nonNull(this.tokenRepository.findFirstByEmailAndExpiryTimeAfter(email, LocalDateTime.now()))) {
-            throw new IllegalArgumentException(email + " is not verify now, please try again");
-        }
-        final RegistrationToken token = RegistrationTokenFactory.create(email);
-        this.tokenRepository.save(token);
+    @Transactional
+    public void mailVerification(String email) {
+        String token = this.registrationTokenService.save(email);
         this.applicationEventPublisher.publishEvent(
-            new RegistrationMailSendEvent(token.getEmail(), activationLink + token.getToken())
+            new RegistrationMailSendEvent(email, token)
         );
+    }
+
+    @Transactional
+    public void createUser(UserCreatorDTO userCreatorDTO) {
+        this.registrationTokenService.checkToken(userCreatorDTO.email(), userCreatorDTO.token());
+        this.userService.createUser(userCreatorDTO.email(), userCreatorDTO.password());
+        this.registrationTokenService.deleteToken(userCreatorDTO.token());
     }
 }
