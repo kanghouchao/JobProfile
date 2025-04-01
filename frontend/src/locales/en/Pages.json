@@ -1,1 +1,6 @@
-{}
+{
+  "chat": {
+    "enterMessage": "Enter your message",
+    "placeholder": "Type your message..."
+  }
+}

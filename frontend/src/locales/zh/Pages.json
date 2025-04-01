@@ -1,1 +1,6 @@
-{}
+{
+  "chat": {
+    "enterMessage": "请输入您的消息",
+    "placeholder": "输入消息..."
+  }
+}

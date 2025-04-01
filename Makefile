@@ -1,10 +1,10 @@
 build:
-	make -j2 -C backend build
-	make -j2 -C frontend build
+	make -C backend build
+	make -C frontend build
 
 test:
-	make -j2 -C backend test
-	make -j2 -C frontend test
+	make -C backend test
+	make -C frontend test
 
 up:
 	docker-compose -p job-profile up -d
