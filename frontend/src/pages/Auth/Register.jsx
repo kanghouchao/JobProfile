@@ -1,32 +1,44 @@
 import React, { useState } from 'react';
 import { FcGoogle } from "react-icons/fc";
 import { FaLinkedin } from "react-icons/fa";
-import userService from '../../services/auth/authService';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
+import authService from '../../services/auth';
+import { toast } from 'react-toastify';
 
 const Register = () => {
   const { t } = useTranslation('auth');
   const [email, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
+  // 登録フォームの送信処理
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!email) {
+      toast.error(t('register.emailRequired'));
+      return;
+    }
+
+    setIsLoading(true);
     try {
-      await userService.register(email);
-      navigate('/register-success');
+      await authService.initiateRegistration(email);
+      navigate('/register-success', { state: { email } });
+      toast.success(t('register.checkEmail'));
     } catch (error) {
-      console.error(error.message);
+      toast.error(error.response?.data?.message || t('register.error'));
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <div className="flex h-screen">
-      {/* Left Side - Background Image */}
-      <div className="hidden md:flex flex-1 bg-cover bg-center" style={{ backgroundImage: "url('/images/register-bg.png')" }}>
+      {/* 左側：背景画像 */}
+      <div className="hidden md:flex flex-1 bg-cover bg-center" style={{ backgroundImage: "url('/images/auth-bg.png')" }}>
       </div>
 
-      {/* Right Side - Registration Form */}
+      {/* 右側：登録フォーム */}
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-6 md:p-12">
         <h2 className="text-3xl font-semibold mb-6">{t('register.title')}</h2>
         <p className="text-gray-500 mb-4">{t('register.subtitle')}</p>
@@ -37,28 +49,33 @@ const Register = () => {
             placeholder={t('register.emailPlaceholder')}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="mb-4 w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            disabled={isLoading}
+            className="mb-4 w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none disabled:bg-gray-100"
           />
           <button 
             type="submit" 
-            className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition">
-            {t('register.submit')}
+            disabled={isLoading}
+            className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition disabled:bg-blue-400">
+            {isLoading ? t('register.submitting') : t('register.submit')}
           </button>
         </form>
         
         <div className="my-4 text-gray-400">{t('register.or')}</div>
         
+        {/* ソーシャルログインボタン */}
         <div className="flex w-full max-w-sm space-x-4">
-          <button className="flex-1 flex items-center justify-center p-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition">
-            <FcGoogle className="mr-2" size={20} /> {t('register.google')}
+          <button className="flex-1 flex items-center justify-center space-x-2 p-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+            <FcGoogle size={20} />
+            <span>{t('register.google')}</span>
           </button>
-          <button className="flex-1 flex items-center justify-center p-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition">
-            <FaLinkedin className="text-blue-700 mr-2" size={20} /> {t('register.linkedin')}
+          <button className="flex-1 flex items-center justify-center space-x-2 p-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+            <FaLinkedin size={20} className="text-blue-600" />
+            <span>{t('register.linkedin')}</span>
           </button>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Register;

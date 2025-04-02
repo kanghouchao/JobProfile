@@ -1,76 +1,111 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import userService from '../../services/auth/authService';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
+import authService from '../../services/auth';
+import { toast } from 'react-toastify';
 
 const PasswordSetting = () => {
-  const location = useLocation();
+  const { t } = useTranslation('auth');
   const navigate = useNavigate();
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const email = searchParams.get('email');
+  const token = searchParams.get('token');
+
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const urlParams = new URLSearchParams(location.search);
-    const token = urlParams.get('token');
-    if (password === confirmPassword) {
-      userService.createUser(JSON.stringify({'token': token, 'password': password }));
-      navigate("/")
+  // パスワード設定フォームの送信処理
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!password || !confirmPassword) {
+      toast.error(t('passwordSetting.allFieldsRequired'));
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toast.error(t('passwordSetting.passwordsMismatch'));
+      return;
+    }
+
+    if (password.length < 8) {
+      toast.error(t('passwordSetting.passwordTooShort'));
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      await authService.completeRegistration(email, token, password);
+      toast.success(t('passwordSetting.success'));
+      navigate('/login');
+    } catch (error) {
+      toast.error(error.response?.data?.message || t('passwordSetting.error'));
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  return (
-    <div className="bg-gray-100 h-screen flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full sm:w-96">
-        <h2 className="text-2xl font-bold text-center text-gray-700 mb-6">Set Your Password</h2>
+  // トークンまたはメールアドレスが無効な場合のエラー表示
+  if (!email || !token) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-semibold text-red-600 mb-4">{t('passwordSetting.invalidLink')}</h2>
+          <p className="text-gray-600">{t('passwordSetting.invalidLinkDesc')}</p>
+        </div>
+      </div>
+    );
+  }
 
-        <form onSubmit={handleSubmit}>
-        
-          <div className="mb-4">
-            <label htmlFor="password" className="block text-sm font-medium text-gray-600">
-              New Password
+  return (
+    <div className="flex h-screen">
+      {/* 左側：背景画像 */}
+      <div className="hidden md:flex flex-1 bg-cover bg-center" style={{ backgroundImage: "url('/images/auth-bg.png')" }}>
+      </div>
+
+      {/* 右側：パスワード設定フォーム */}
+      <div className="w-full md:w-1/2 flex flex-col justify-center items-center p-6 md:p-12">
+        <h2 className="text-3xl font-semibold mb-6">{t('passwordSetting.title')}</h2>
+        <p className="text-gray-500 mb-8">{t('passwordSetting.subtitle')}</p>
+
+        <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              {t('passwordSetting.password')}
             </label>
             <input
               type="password"
-              id="password"
-              name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
-              className="mt-2 p-3 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={isLoading}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none disabled:bg-gray-100"
+              placeholder={t('passwordSetting.passwordPlaceholder')}
             />
           </div>
 
-          <div className="mb-6">
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-600">
-              Confirm Password
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              {t('passwordSetting.confirmPassword')}
             </label>
             <input
               type="password"
-              id="confirmPassword"
-              name="confirmPassword"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-              className="mt-2 p-3 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={isLoading}
+              className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none disabled:bg-gray-100"
+              placeholder={t('passwordSetting.confirmPasswordPlaceholder')}
             />
           </div>
 
           <button
             type="submit"
-            className="w-full py-3 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            Set Password
+            disabled={isLoading}
+            className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition disabled:bg-blue-400">
+            {isLoading ? t('passwordSetting.submitting') : t('passwordSetting.submit')}
           </button>
         </form>
-
-        <div className="mt-4 text-center">
-          <p className="text-sm text-gray-600">
-            Already have an account?{' '}
-            <a href="/login" className="text-blue-500 hover:text-blue-600">
-              Login here
-            </a>
-          </p>
-        </div>
       </div>
     </div>
   );
