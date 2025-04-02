@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: job-profile
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
+  mail:
+    host: ${SPRING_MAIL_HOST:smtp.gmail.com}
+    port: ${SPRING_MAIL_PORT:587}
+    username: ${SPRING_MAIL_USERNAME}
+    password: ${SPRING_MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+app:
+  auth:
+    jwt:
+      secret: ${JWT_SECRET}
+      expiration-ms: ${JWT_EXPIRATION_MS:86400000}
+  mail:
+    from: ${MAIL_FROM:no-reply@jobprofile.com}
+  site:
+    scheme: ${JOB_PROFILE_SITE_SCHEME:http}
+    domain: ${JOB_PROFILE_SITE_DOMAIN:localhost:3000}
+    register-path: ${JOB_PROFILE_REGISTER_ROUTER:/password-setting}

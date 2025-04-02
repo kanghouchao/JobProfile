@@ -1,43 +1,48 @@
 databaseChangeLog:
   - changeSet:
-      id: 1
-      author: kanhouchou
+      id: 0001-create-users-table
+      author: kanghouchao
       changes:
         - createTable:
             tableName: users
             columns:
               - column:
                   name: id
-                  type: BIGINT
+                  type: bigint
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: email
-                  type: VARCHAR(255)
+                  type: varchar(255)
                   constraints:
-                    nullable: false
                     unique: true
+                    nullable: false
               - column:
                   name: password
-                  type: VARCHAR(255)
-                  constraints:
-                    nullable: true
+                  type: varchar(255)
               - column:
-                  name: provider
-                  type: VARCHAR(50)
+                  name: enabled
+                  type: bit(1)
+                  defaultValueNumeric: 0
                   constraints:
                     nullable: false
+              - column:
+                  name: email_verified
+                  type: bit(1)
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: false
+              - column:
+                  name: verification_token
+                  type: varchar(255)
+              - column:
+                  name: token_expiry_time
+                  type: timestamp
               - column:
                   name: created_at
-                  type: TIMESTAMP
-                  defaultValueComputed: CURRENT_TIMESTAMP
-                  constraints:
-                    nullable: false
-              - column:
-                  name: updated_at
-                  type: TIMESTAMP
-                  defaultValueComputed: CURRENT_TIMESTAMP
+                  type: timestamp
+                  defaultValueComputed: "CURRENT_TIMESTAMP"
                   constraints:
                     nullable: false
