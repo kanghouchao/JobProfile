@@ -3,6 +3,7 @@
 *.iws
 *.iml
 *.ipr
+.vscode/
 
 # Eclipse specific files
 *.classpath
