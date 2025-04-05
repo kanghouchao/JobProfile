@@ -15,7 +15,7 @@ public class RegistrationController {
 
     private final RegistrationService registrationService;
 
-    @PostMapping("/initiate")
+    @PutMapping("/initiate")
     public ResponseEntity<Void> initiateRegistration(
             @RequestBody @Valid InitiateRegistrationRequest request) {
         registrationService.initiateRegistration(request.email());

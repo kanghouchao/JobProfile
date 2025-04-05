@@ -1,9 +1,11 @@
 import { getHttpClient } from '../../config/HttpClinet';
 
+const hc = getHttpClient('v1');
+
 const authService = {
   // ログインAPI v1を使用
   login: (email, password) => {
-    const response = getHttpClient('v1').postForm('/auth/login', { email, password });
+    const response = hc.postForm('/auth/login', { email, password });
     if (response.data?.token) {
       localStorage.setItem('token', response.data.token);
     }
@@ -12,10 +14,10 @@ const authService = {
 
   // 登録API v1を使用
   initiateRegistration: (email) => 
-    getHttpClient('v1').putForm('/auth/register/send-mail', { email }),
+    hc.putForm('/auth/register/initiate', { email }),
 
   completeRegistration: (email, token, password) => 
-    getHttpClient('v1').post('/auth/register/create-user', {
+    hc.post('/auth/register/complete', {
       email,
       token,
       password
