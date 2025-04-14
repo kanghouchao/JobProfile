@@ -21,6 +21,13 @@ spring:
           starttls:
             enable: true
             required: true
+  task:
+    execution:
+      pool:
+        keep-alive: 30s
+        core-size: 2
+        queue-capacity: 10
+      thread-name-prefix: job-profile-task-
 
 app:
   auth:
