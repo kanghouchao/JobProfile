@@ -5,6 +5,8 @@ COPY package.json ./
 RUN --mount=type=cache,id=node_modules,target=node_modules npm install
 
 FROM npm-install AS npm-test
+ARG CI=true
+ENV CI=${CI}
 COPY babel.config.js babel.config.js
 COPY ./public ./public
 COPY ./src ./src

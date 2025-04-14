@@ -6,10 +6,7 @@ const BASE_URL = process.env.REACT_APP_API_URL || '/';
 const createHttpClient = (version = '') => {
   const client = axios.create({
     baseURL: `${BASE_URL}api/${version}`,
-    timeout: 1000,
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    timeout: 1000
   });
 
   // リクエストインターセプター
