@@ -1,4 +1,4 @@
-import { getHttpClient } from '../../config/HttpClinet';
+import { getHttpClient } from '@/config/HttpClinet';
 
 const hc = getHttpClient('v1');
 
@@ -6,7 +6,7 @@ const authService = {
   // ログインAPI v1を使用
   login: (email, password) => {
     const response = hc.postForm('/auth/login', { 'email': email, 'password': password });
-    if (response.data?.token) {
+    if (response.data.token) {
       localStorage.setItem('token', response.data.token);
     }
     return response;
