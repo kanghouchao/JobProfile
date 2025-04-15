@@ -3,7 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 import { FaLinkedin } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
-import authService from '../../services/auth';
+import authService from '@/services/auth';
 import { toast } from 'react-toastify';
 
 const Register = () => {

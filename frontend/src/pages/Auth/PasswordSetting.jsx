@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
-import authService from '../../services/auth';
+import authService from '@/services/auth';
 import { toast } from 'react-toastify';
 
 const PasswordSetting = () => {

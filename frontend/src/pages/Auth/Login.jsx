@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
-import authService from '../../services/auth';
+import authService from '@/services/auth';
 import { toast } from 'react-toastify';
 import { FcGoogle } from "react-icons/fc";
 import { FaLinkedin } from "react-icons/fa";

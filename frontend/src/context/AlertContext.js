@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from 'react';
-import { addErrorHandler } from '../config/HttpClinet';
-import i18n from '../config/i18n';
+import { addErrorHandler } from '@/config/HttpClinet';
+import i18n from '@/config/i18n';
 
 const AlertContext = createContext();
 
