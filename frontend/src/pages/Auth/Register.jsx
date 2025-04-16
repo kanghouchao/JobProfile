@@ -73,6 +73,13 @@ const Register = () => {
             <span>{t('register.linkedin')}</span>
           </button>
         </div>
+
+        <div className="mt-6 text-gray-500">
+          {t('register.haveAccount')}{' '}
+          <a href="/login" className="text-blue-600 hover:underline">
+            {t('register.login')}
+          </a>
+        </div>
       </div>
     </div>
   );
