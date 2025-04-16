@@ -3,7 +3,7 @@ import Layout from "./layout";
 import Home from "./pages/Home";
 import ResumeForm, { JobHistoryForm } from "./pages/Resume";
 import PayPage from "./pages/Pay";
-import Register, { Login, PasswordSetting, RegisterSuccess } from "./pages/Auth";
+import Register, { Login, PasswordSetting, RegisterSuccess, ForgotPassword } from "./pages/Auth";
 
 const router = createBrowserRouter(
   [
@@ -20,7 +20,8 @@ const router = createBrowserRouter(
     { path: "login", element: <Login /> },
     { path: "register", element: <Register /> },
     { path: "password-setting", element: <PasswordSetting /> },
-    { path: "register-success", element: <RegisterSuccess /> }
+    { path: "register-success", element: <RegisterSuccess /> },
+    { path: "forgot-password", element: <ForgotPassword /> },
   ],
   {
     future: {
