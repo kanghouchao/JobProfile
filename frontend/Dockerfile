@@ -8,6 +8,8 @@ FROM npm-install AS npm-test
 ARG CI=true
 ENV CI=${CI}
 COPY babel.config.js babel.config.js
+COPY craco.config.js craco.config.js
+COPY jest.config.js jest.config.js
 COPY ./public ./public
 COPY ./src ./src
 RUN --mount=type=cache,id=node_modules,target=node_modules npm run test

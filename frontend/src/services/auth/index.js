@@ -4,8 +4,8 @@ const hc = getHttpClient('v1');
 
 const authService = {
   // ログインAPI v1を使用
-  login: (email, password) => {
-    const response = hc.postForm('/auth/login', { 'email': email, 'password': password });
+  login: async (email, password) => {
+    const response = await hc.postForm('/auth/login', { 'email': email, 'password': password });
     if (response.data.token) {
       localStorage.setItem('token', response.data.token);
     }
@@ -13,8 +13,8 @@ const authService = {
   },
 
   // 登録API v1を使用
-  initiateRegistration: (email) => 
-    hc.put('/auth/register/initiate', { email }),
+  initiateRegistration: async (email) => 
+    await hc.put('/auth/register/initiate', { email }),
 
   completeRegistration: (email, token, password) => 
     hc.post('/auth/register/complete', {
