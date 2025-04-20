@@ -1,0 +1,204 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-create-persons-table
+      author: kanghouchao
+      changes:
+        - createTable:
+            tableName: persons
+            remarks: "応募者の基本個人情報を保存するテーブル"
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  remarks: "主キーID"
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: user_id
+                  type: bigint
+                  remarks: "ログイン用ユーザーIDへの外部キー"
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_person_user
+                    references: users(id)
+              - column:
+                  name: last_name
+                  type: varchar(50)
+                  remarks: "姓（漢字）"
+              - column:
+                  name: first_name
+                  type: varchar(50)
+                  remarks: "名（漢字）"
+              - column:
+                  name: last_name_kana
+                  type: varchar(50)
+                  remarks: "姓（ふりがな）"
+              - column:
+                  name: first_name_kana
+                  type: varchar(50)
+                  remarks: "名（ふりがな）"
+              - column:
+                  name: birth_date
+                  type: date
+                  remarks: "生年月日"
+              - column:
+                  name: gender
+                  type: tinyint
+                  remarks: "性別"
+              - column:
+                  name: email
+                  type: varchar(100)
+                  remarks: "メールアドレス"
+              - column:
+                  name: phone
+                  type: varchar(20)
+                  remarks: "電話番号"
+
+  - changeSet:
+      id: 003-create-addresses-table
+      author: kanghouchao
+      changes:
+        - createTable:
+            tableName: addresses
+            remarks: "住所情報（現住所または連絡先）を保存するテーブル"
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  remarks: "主キーID"
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: person_id
+                  type: bigint
+                  remarks: "個人情報への外部キー"
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_addresses_person
+                    references: persons(id)
+              - column:
+                  name: postal_code
+                  type: varchar(10)
+                  remarks: "郵便番号"
+              - column:
+                  name: prefecture
+                  type: varchar(50)
+                  remarks: "都道府県"
+              - column:
+                  name: city
+                  type: varchar(100)
+                  remarks: "市区町村"
+              - column:
+                  name: street
+                  type: varchar(100)
+                  remarks: "番地・丁目"
+              - column:
+                  name: room
+                  type: varchar(100)
+                  remarks: "建物名・部屋番号など"
+              - column:
+                  name: phone
+                  type: varchar(20)
+                  remarks: "住所に関する電話番号"
+              - column:
+                  name: is_current_address
+                  type: boolean
+                  remarks: "現住所かどうか（true＝現住所）"
+
+  - changeSet:
+      id: 006-create-resumes-table
+      author: kanghouchao
+      changes:
+        - createTable:
+            tableName: resumes
+            remarks: "履歴書の基本情報をまとめるテーブル"
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  remarks: "履歴書ID（主キー）"
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: person_id
+                  type: bigint
+                  remarks: "個人情報IDへの外部キー"
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_resumes_person
+                    references: persons(id)
+              - column:
+                  name: created_at
+                  type: datetime
+                  remarks: "作成日時"
+              - column:
+                  name: updated_at
+                  type: datetime
+                  remarks: "更新日時"
+
+  - changeSet:
+      id: 008-create-self-promotions
+      author: kanghouchao
+      changes:
+        - createTable:
+            tableName: self_promotions
+            remarks: "志望動機や自己PRの内容を保存するテーブル"
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  remarks: "主キーID"
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: resume_id
+                  type: bigint
+                  remarks: "履歴書IDへの外部キー"
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_self_promotions_resume
+                    references: resumes(id)
+              - column:
+                  name: content
+                  type: text
+                  remarks: "自己PR本文"
+
+  - changeSet:
+      id: 009-create-personal-preferences
+      author: kanghouchao
+      changes:
+        - createTable:
+            tableName: personal_preferences
+            remarks: "希望職種や勤務地など、本人の希望を保存するテーブル"
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  remarks: "主キーID"
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: resume_id
+                  type: bigint
+                  remarks: "履歴書IDへの外部キー"
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_preferences_resume
+                    references: resumes(id)
+              - column:
+                  name: desired_job
+                  type: varchar(100)
+                  remarks: "希望する職種"
+              - column:
+                  name: desired_location
+                  type: varchar(100)
+                  remarks: "希望勤務地"
+              - column:
+                  name: other_notes
+                  type: text
+                  remarks: "その他の希望・補足事項"
