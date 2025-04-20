@@ -1,18 +1,18 @@
-import axios from 'axios';
+import axios from "axios";
 
-const BASE_URL = process.env.REACT_APP_API_URL || '/';
+const BASE_URL = process.env.REACT_APP_API_URL || "/";
 
 // HTTPクライアントを作成
-const createHttpClient = (version = '') => {
+const createHttpClient = (version = "") => {
   const client = axios.create({
     baseURL: `${BASE_URL}api/${version}`,
-    timeout: 1000
+    timeout: 1000,
   });
 
   // リクエストインターセプター
   client.interceptors.request.use(
     (config) => {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
@@ -44,7 +44,7 @@ export const addErrorHandler = (handler) => {
 const clientsCache = new Map();
 
 // バージョン指定のHTTPクライアントを取得
-export const getHttpClient = (version = '') => {
+export const getHttpClient = (version = "") => {
   if (!clientsCache.has(version)) {
     clientsCache.set(version, createHttpClient(version));
   }

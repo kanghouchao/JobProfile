@@ -6,7 +6,7 @@ export default function ChatGPTInterface() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { t } = useTranslation('pages');
+  const { t } = useTranslation("pages");
   const textareaRef = useRef(null);
 
   const handleSendMessage = async () => {
