@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
-import Sidebar from './components/Sidebar';
-import Header from './components/Header';
-import { AlertProvider } from "./context/AlertContext"; 
+import Sidebar from '@/components/Sidebar';
+import Header from '@/components/Header';
+import { AlertProvider } from "@/context/AlertContext"; 
 
 const Layout = () => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const Layout = () => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
-      // navigate('/login');
+      navigate('/login');
     }
   }, [navigate]);
 

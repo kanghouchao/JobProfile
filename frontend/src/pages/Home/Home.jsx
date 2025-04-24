@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import aiService from "@/services/ai";
 
 export default function ChatGPTInterface() {
   const [input, setInput] = useState("");
@@ -13,18 +14,16 @@ export default function ChatGPTInterface() {
     if (!input.trim()) return;
 
     setLoading(true);
+    try {
+      const response = await aiService.generate(input);
+      const jsonData = response.data;
 
-    setTimeout(() => {
-      const aiResponse = {
-        name: "山田 太郎",
-        age: 30,
-        skills: ["JavaScript", "React", "Node.js"],
-        experience: "5年のソフトウェア开发经验",
-      };
-
-      navigate("/result", { state: { data: aiResponse } });
+      navigate("/resume", { state: { data: jsonData } });
+    } catch (error) {
+      console.error("Error generating data:", error);
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
   };
 
   const handleInputChange = (e) => {
@@ -58,6 +57,16 @@ export default function ChatGPTInterface() {
           style={{ maxHeight: "10rem" }}
         />
       </div>
+
+      <button
+        onClick={handleSendMessage}
+        disabled={loading}
+        className={`mt-4 px-6 py-3 rounded-lg text-white ${
+          loading ? "bg-gray-400" : "bg-blue-600 hover:bg-blue-700"
+        }`}
+      >
+        {loading ? t("chat.loading") : t("chat.submit")}
+      </button>
     </div>
   );
 }

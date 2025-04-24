@@ -26,7 +26,7 @@ const Register = () => {
       navigate('/register-success', { state: { email } });
       toast.success(t('register.checkEmail'));
     } catch (error) {
-      toast.error(error.response?.data?.message || t('register.error'));
+      console.error(error.message || t('register.error'));
     } finally {
       setIsLoading(false);
     }
@@ -46,6 +46,9 @@ const Register = () => {
         <form onSubmit={handleSubmit} className="w-full max-w-sm">
           <input
             type="email"
+            name='email'
+            required
+            autoComplete="email"
             placeholder={t('register.emailPlaceholder')}
             value={email}
             onChange={(e) => setEmail(e.target.value)}

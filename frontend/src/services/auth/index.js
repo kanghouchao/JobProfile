@@ -13,7 +13,7 @@ const authService = {
   },
 
   // 登録API v1を使用
-  initiateRegistration: async (email) => 
+  initiateRegistration: async (email) =>
     await hc.put('/auth/register/initiate', { email }),
 
   completeRegistration: (email, token, password) => 

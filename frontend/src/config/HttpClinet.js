@@ -4,9 +4,14 @@ const BASE_URL = process.env.REACT_APP_API_URL || "/";
 
 // HTTPクライアントを作成
 const createHttpClient = (version = "") => {
+  
   const client = axios.create({
-    baseURL: `${BASE_URL}api/${version}`,
+    baseURL: `${BASE_URL}/api/${version}`,
     timeout: 1000,
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+    }
   });
 
   // リクエストインターセプター
@@ -51,4 +56,4 @@ export const getHttpClient = (version = "") => {
   return clientsCache.get(version);
 };
 
-export default getHttpClient();
+export default getHttpClient;
