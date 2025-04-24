@@ -1,5 +1,5 @@
-import ResumeForm from "./ResumeForm"
-import JobHistoryForm from "./JobHistoryForm"
+import ResumeForm from "@/pages/Resume/ResumeForm"
+import JobHistoryForm from "@/pages/Resume/JobHistoryForm"
 
 export default ResumeForm
 

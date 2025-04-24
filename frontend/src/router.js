@@ -1,9 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
-import Layout from "./layout";
-import Home from "./pages/Home";
-import ResumeForm, { JobHistoryForm } from "./pages/Resume";
-import PayPage from "./pages/Pay";
-import Register, { Login, PasswordSetting, RegisterSuccess, ForgotPassword } from "./pages/Auth";
+import Layout from "@/layout";
+import Home from "@/pages/Home";
+import ResumeForm, { JobHistoryForm } from "@/pages/Resume";
+import PayPage from "@/pages/Pay";
+import Register, { Login, PasswordSetting, RegisterSuccess, ForgotPassword } from "@/pages/Auth";
 
 const router = createBrowserRouter(
   [

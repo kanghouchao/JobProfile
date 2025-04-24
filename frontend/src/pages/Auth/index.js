@@ -1,8 +1,8 @@
-import Login from "./Login"
-import Register from "./Register"
-import PasswordSetting from "./PasswordSetting"
-import RegisterSuccess from "./RegisterSuccess"
-import ForgotPassword from "./ForgotPassword"
+import Login from "@/pages/Auth/Login"
+import Register from "@/pages/Auth/Register"
+import PasswordSetting from "@/pages/Auth/PasswordSetting"
+import RegisterSuccess from "@/pages/Auth/RegisterSuccess"
+import ForgotPassword from "@/pages/Auth/ForgotPassword"
 
 export default Register
 
