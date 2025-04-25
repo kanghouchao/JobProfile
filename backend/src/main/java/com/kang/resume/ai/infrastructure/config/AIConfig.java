@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 class AIConfig {
 
-    @Value("${app.openai.api.key}")
+    @Value("${app.openai.key}")
     private String apiKey;
     @Bean
     ChatModel chatModel() {

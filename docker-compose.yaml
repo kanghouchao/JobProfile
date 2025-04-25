@@ -44,6 +44,7 @@ services:
       JOB_PROFILE_SITE_SCHEME: ${JOB_PROFILE_SITE_SCHEME}
       JOB_PROFILE_SITE_DOMAIN: ${JOB_PROFILE_SITE_DOMAIN}
       JOB_PROFILE_REGISTER_ROUTER: ${JOB_PROFILE_REGISTER_ROUTER}
+      APP_OPENAI_KEY: ${APP_OPENAI_KEY}
     labels:
       - "traefik.http.routers.backend.entrypoints=web"
       - "traefik.http.routers.backend.rule=Host(`www.job-profile.com`) && PathPrefix(`/api`)"
