@@ -1,6 +1,19 @@
 {
-  "chat": {
-    "enterMessage": "Enter your message",
-    "placeholder": "Type your message..."
+  "ai": {
+    "steps": {
+      "personalInfo": "Personal Information",
+      "basicInfo": "Basic Info & Experience",
+      "finalResume": "Final Resume"
+    },
+    "chat": {
+      "title": "Personal Introduction & Experience",
+      "instruction": "Please enter your personal information, education, work experience and other details. The more detailed the content, the more professional the generated resume will be.",
+      "placeholder": "You can include the following information:\n・Education (School, Major, Degree, Duration)\n・Work Experience (Company, Position, Duration, Key Responsibilities and Achievements)\n・Skills (Technical Skills, Language Abilities, Certifications)\n・Project Experience (Project Name, Role, Achievements)",
+      "voice": "Voice Input",
+      "import": "Import File",
+      "save": "Save Draft",
+      "continue": "Continue",
+      "generating": "Generating..."
+    }
   }
 }
