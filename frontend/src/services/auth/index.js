@@ -5,9 +5,9 @@ const hc = getHttpClient('v1');
 const authService = {
   // ログインAPI v1を使用
   login: async (email, password) => {
-    const response = await hc.postForm('/auth/login', { 'email': email, 'password': password });
-    if (response.data.token) {
-      localStorage.setItem('token', response.data.token);
+    const response = await hc.post('/auth/login', { email, password });
+    if (response.token) {
+      localStorage.setItem('token', response.token);
     }
     return response;
   },

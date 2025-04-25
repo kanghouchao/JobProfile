@@ -28,7 +28,7 @@ const Login = () => {
       toast.success(t("login.success"));
       navigate("/");
     } catch (error) {
-      toast.error(error.response?.data?.message || t("login.error"));
+      toast.error(error.message || t("login.error"));
     } finally {
       setIsLoading(false);
     }
@@ -54,6 +54,9 @@ const Login = () => {
             </label>
             <input
               type="email"
+              name="email"
+              required
+              autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               disabled={isLoading}
@@ -76,6 +79,9 @@ const Login = () => {
             </div>
             <input
               type="password"
+              name="password"
+              required
+              autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               disabled={isLoading}
