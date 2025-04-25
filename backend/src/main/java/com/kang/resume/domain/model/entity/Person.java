@@ -1,6 +1,9 @@
 package com.kang.resume.domain.model.entity;
 
+import com.kang.resume.infrastructure.external.GenderConverter;
 import com.kang.resume.user.auth.domain.entity.User;
+import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,17 +30,19 @@ public class Person {
     private User user;
 
     private String firstName;
-    private String fistNameKana;
+    private String firstNameKana;
 
     private String lastName;
     private String lastNameKana;
 
     private LocalDate birthday;
 
+    @Column(columnDefinition = "TINYINT")
+    @Convert(converter = GenderConverter.class)
     private Gender gender;
 
     private String email;
 
-    private String phoneNumber;
+    private String phone;
 
 }
