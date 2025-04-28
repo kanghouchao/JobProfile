@@ -26,6 +26,6 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Build and push Docker image
-      run: |
-        REPOSITORY_NAME=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
-        docker buildx build --target build-image --tag ghcr.io/$REPOSITORY_NAME/job-profile-web:0.0.1 --push .    
+      run: make push
+      env:
+        DOCKER_REGISTRY: ghcr.io
