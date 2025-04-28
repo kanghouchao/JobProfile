@@ -6,6 +6,9 @@ test:
 	make -C backend test
 	make -C frontend test
 
+push:
+	make -C frontend push
+
 up:
 	docker-compose -p job-profile up -d
 
