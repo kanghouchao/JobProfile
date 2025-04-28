@@ -28,4 +28,4 @@ jobs:
     - name: Build and push Docker image
       run: make push
       env:
-        DOCKER_REGISTRY: ghcr.io
+        DOCKER_REGISTRY: ghcr.io/${{ github.repository }}
