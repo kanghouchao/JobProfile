@@ -7,6 +7,7 @@ test:
 	make -C frontend test
 
 push:
+	make -C backend push
 	make -C frontend push
 
 up:

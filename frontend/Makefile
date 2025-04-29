@@ -19,9 +19,3 @@ test:
 
 push:
 	docker buildx build --target build-image --tag $(DOCKER_IMAGE) --push .
-
-run:
-	docker run -d -p 80:80 --name $(IMAGE_NAME) $(DOCKER_IMAGE)
-
-stop:
-	docker stop $(IMAGE_NAME) && docker rm $(IMAGE_NAME)
