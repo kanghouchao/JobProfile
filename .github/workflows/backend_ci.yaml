@@ -14,7 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up For Test
-        uses: ./.github/workflows/setup.yaml@main
         uses: ./.github/workflows/setup.yaml@${{ github.sha }}
       - name: Test backend
         run: make test-backend
@@ -24,7 +23,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up For Build
-        uses: ./.github/workflows/setup.yaml@main
         uses: ./.github/workflows/setup.yaml@${{ github.sha }}
         with:
           needs-docker-login: true
