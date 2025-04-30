@@ -28,7 +28,7 @@ jobs:
           password: ${{ secrets.PACKAGES_TOKEN }}
 
       - name: Test backend
-        run: make test_backend
+        run: make test-backend
 
       - name: Push backend
         run: make push-backend
