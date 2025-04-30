@@ -10,25 +10,22 @@ on:
       - '.github/workflows/backend_ci.yaml'
       - 'Makefile'
 jobs:
-  setup:
-    uses: ./.github/workflows/setup.yaml
   unit-tests:
     needs: setup
     runs-on: ubuntu-latest
     steps:
+      - name: Set up For Test
+        uses: ./.github/workflows/setup.yaml
       - name: Test backend
         run: make test-backend
   build-image-and-push:
     needs: unit-tests
     runs-on: ubuntu-latest
     steps:
-      - name: Login to GitHub Package Registry
-        uses: docker/login-action@v2
+      - name: Set up For Build
+        uses: ./.github/workflows/setup.yaml
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.PACKAGES_TOKEN }}
-
+          needs-docker-login: true
       - name: Push backend
         run: make push-backend
         env:
