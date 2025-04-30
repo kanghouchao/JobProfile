@@ -11,7 +11,6 @@ on:
       - 'Makefile'
 jobs:
   unit-tests:
-    needs: setup
     runs-on: ubuntu-latest
     steps:
       - name: Set up For Test
