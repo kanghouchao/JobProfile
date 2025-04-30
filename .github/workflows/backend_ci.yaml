@@ -13,8 +13,12 @@ jobs:
   unit-tests:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up For Test
-        uses: ./.github/workflows/setup.yaml@${{ github.sha }}
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Call reusable workflow
+        uses: ./.github/workflows/setup.yaml
+
       - name: Test backend
         run: make test-backend
 
@@ -22,10 +26,14 @@ jobs:
     needs: unit-tests
     runs-on: ubuntu-latest
     steps:
-      - name: Set up For Build
-        uses: ./.github/workflows/setup.yaml@${{ github.sha }}
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Call reusable workflow
+        uses: ./.github/workflows/setup.yaml
         with:
           needs-docker-login: true
+
       - name: Push backend
         run: make push-backend
         env:
