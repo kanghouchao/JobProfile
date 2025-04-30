@@ -7,7 +7,7 @@ on:
       - main
     paths:
       - 'backend/**'
-      - '.github/workflows/backend_ci.yaml'
+      - '.github/**'
       - 'Makefile'
 jobs:
   unit-tests:
