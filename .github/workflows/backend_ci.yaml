@@ -14,15 +14,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up For Test
-        uses: ./.github/workflows/setup.yaml
+        uses: ./.github/workflows/setup.yaml@main
+        uses: ./.github/workflows/setup.yaml@${{ github.sha }}
       - name: Test backend
         run: make test-backend
+
   build-image-and-push:
     needs: unit-tests
     runs-on: ubuntu-latest
     steps:
       - name: Set up For Build
-        uses: ./.github/workflows/setup.yaml
+        uses: ./.github/workflows/setup.yaml@main
+        uses: ./.github/workflows/setup.yaml@${{ github.sha }}
         with:
           needs-docker-login: true
       - name: Push backend
