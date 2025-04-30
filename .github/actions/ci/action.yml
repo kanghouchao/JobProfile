@@ -4,10 +4,6 @@ inputs:
   endpoint:
     description: The endpoint
     required: true
-outputs:
-  docker-tag:
-    description: The docker tag
-    value: ${{ steps.docker-tag.outputs.docker-tag }}
 runs:
   using: "composite"
   steps:
