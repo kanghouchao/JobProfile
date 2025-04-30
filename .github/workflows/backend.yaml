@@ -16,3 +16,4 @@ jobs:
         uses: ./.github/actions/ci
         with:
           endpoint: backend
+          token: ${{ secrets.PACKAGES_TOKEN }}

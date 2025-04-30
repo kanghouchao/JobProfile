@@ -4,6 +4,9 @@ inputs:
   endpoint:
     description: The endpoint
     required: true
+  token:
+    description: GitHub token for package registry
+    required: true
 runs:
   using: "composite"
   steps:
@@ -21,7 +24,7 @@ runs:
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
-        password: ${{ secrets.PACKAGES_TOKEN }}
+        password: ${{ inputs.token }}
 
     - name: Build and push Docker image
       run: make push-$ENDPOINT
