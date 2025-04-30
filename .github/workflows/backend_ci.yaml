@@ -1,6 +1,6 @@
 # This workflow is triggered on push events to the main branch
 # for changes in the backend directory or the workflow file itself.
-name: Backend CI/CD
+name: Backend CI
 on:
   push:
     branches:
@@ -10,7 +10,7 @@ on:
       - '.github/workflows/backend_ci.yaml'
       - 'Makefile'
 jobs:
-  CI:
+  backend_ci:
     name: Backend CI
     runs-on: ubuntu-latest
     steps:
@@ -28,7 +28,7 @@ jobs:
           password: ${{ secrets.PACKAGES_TOKEN }}
 
       - name: Test backend
-        run: make test-backend
+        run: make test_backend
 
       - name: Push backend
         run: make push-backend
