@@ -1,4 +1,4 @@
-name: Setup
+name: Composite CI step
 description: Checkout code, set up docker, unit test, loin to ghcr, build and push docker image
 inputs:
   endpoint:
@@ -7,6 +7,7 @@ inputs:
   token:
     description: GitHub token for package registry
     required: true
+
 runs:
   using: "composite"
   steps:
@@ -19,6 +20,12 @@ runs:
       env:
         ENDPOINT: ${{ inputs.endpoint }}
 
+    - name: Build image
+      run: make build-$ENDPOINT
+      shell: bash
+      env:
+        ENDPOINT: ${{ inputs.endpoint }}
+
     - name: Login to ghcr
       uses: docker/login-action@v2
       with:
@@ -26,7 +33,7 @@ runs:
         username: ${{ github.actor }}
         password: ${{ inputs.token }}
 
-    - name: Build and push Docker image
+    - name: Push image
       run: make push-$ENDPOINT
       shell: bash
       env:

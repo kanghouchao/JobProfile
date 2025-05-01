@@ -1,18 +1,18 @@
-name: Backend
+name: Frontend
 on:
   push:
     branches:
       - main
     paths:
-      - 'backend/**'
+      - 'frontend/**'
 jobs:
-  ci-backend:
-    name: CI Backend
+  ci-frontend:
+    name: CI Frontend
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - id: ci
         uses: ./.github/actions/ci
         with:
-          endpoint: backend
+          endpoint: frontend
           token: ${{ secrets.PACKAGES_TOKEN }}
