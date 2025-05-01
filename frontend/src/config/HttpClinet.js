@@ -39,24 +39,7 @@ const createHttpClient = (version) => {
         }
     );
 
-  return client;
+    return client;
 };
 
-// エラーハンドラー
-const errorHandlers = [];
-export const addErrorHandler = (handler) => {
-  errorHandlers.push(handler);
-};
-
-// クライアントキャッシュ
-const clientsCache = new Map();
-
-// バージョン指定のHTTPクライアントを取得
-export const getHttpClient = (version = "") => {
-  if (!clientsCache.has(version)) {
-    clientsCache.set(version, createHttpClient(version));
-  }
-  return clientsCache.get(version);
-};
-
-export default getHttpClient;
+export default createHttpClient;

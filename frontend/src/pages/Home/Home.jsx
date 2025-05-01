@@ -77,8 +77,8 @@ export default function ChatGPTInterface() {
           <div className="relative">
             <textarea
               ref={textareaRef}
-              className="w-full min-h-[200px] p-4 border border-gray-200 rounded-xl 
-                       text-gray-800 resize-none focus:ring-2 focus:ring-purple-500 
+              className="w-full min-h-[200px] p-4 border border-gray-200 rounded-xl
+                       text-gray-800 resize-none focus:ring-2 focus:ring-purple-500
                        focus:border-transparent outline-none"
               placeholder={t("ai.chat.placeholder")}
               value={input}
@@ -86,12 +86,12 @@ export default function ChatGPTInterface() {
               rows={1}
             />
             <div className="flex items-center space-x-3 absolute bottom-4 left-4">
-              <button 
+              <button
                 title={t("ai.chat.voice")}
                 className="p-2 text-gray-500 hover:text-purple-600 transition-colors">
                 <FaMicrophone size={20} />
               </button>
-              <button 
+              <button
                 title={t("ai.chat.import")}
                 className="p-2 text-gray-500 hover:text-purple-600 transition-colors">
                 <FaFileImport size={20} />
@@ -109,7 +109,7 @@ export default function ChatGPTInterface() {
           <div className="flex justify-between mt-6">
             <button
               onClick={() => {}}
-              className="px-6 py-2 border border-gray-200 rounded-lg 
+              className="px-6 py-2 border border-gray-200 rounded-lg
                        text-gray-600 hover:bg-gray-50 transition-colors"
             >
               {t("ai.chat.save")}
@@ -117,8 +117,8 @@ export default function ChatGPTInterface() {
             <button
               onClick={handleSendMessage}
               disabled={loading}
-              className={`px-6 py-2 rounded-lg text-white font-medium 
-                        transition-all transform hover:scale-105 
+              className={`px-6 py-2 rounded-lg text-white font-medium
+                        transition-all transform hover:scale-105
                         ${loading
                   ? "bg-gray-400 cursor-not-allowed"
                   : "bg-purple-600 hover:bg-purple-700 active:scale-95"
