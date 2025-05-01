@@ -80,10 +80,14 @@ push-frontend:
 build-push-all: $(addprefix build-push-,$(ENDPOINTS))
 	@echo "All builds and pushes completed"
 
-build-push-backend: build-push-backend
+build-push-backend:
+	@echo "Building and pushing backend image..."
+	make -C backend build-push
 	@echo "Backend build and push completed"
 
-build-push-frontend: build-push-frontend
+build-push-frontend:
+	@echo "Building and pushing frontend image..."
+	make -C frontend build-push
 	@echo "Frontend build and push completed"
 
 #===============================================
