@@ -17,40 +17,40 @@ DOCKER_IMAGE := $(REGISTRY_PREFIX)$(IMAGE_NAME):$(VERSION)
 # ヘルプ
 #===============================================
 help:
-    @echo "Available targets:"
-    @echo "  version     - Show current version"
-    @echo "  test        - Run unit tests"
-    @echo "  build       - Build Docker image"
-    @echo "  push        - Push Docker image to registry"
-    @echo "  clean       - Clean build artifacts"
+	@echo "Available targets:"
+	@echo "  version     - Show current version"
+	@echo "  test        - Run unit tests"
+	@echo "  build       - Build Docker image"
+	@echo "  push        - Push Docker image to registry"
+	@echo "  clean       - Clean build artifacts"
 
 #===============================================
 # バージョン表示
 #===============================================
 version:
-    @echo "Version: $(VERSION)"
-    @echo "Image: $(DOCKER_IMAGE)"
+	@echo "Version: $(VERSION)"
+	@echo "Image: $(DOCKER_IMAGE)"
 
 #===============================================
 # テスト
 #===============================================
 test:
-    @echo "Running tests..."
-    docker buildx build --target npm-test --build-arg CI=true .
+	@echo "Running tests..."
+	docker buildx build --target npm-test --build-arg CI=true .
 
 #===============================================
 # ビルド
 #===============================================
 build:
-    @echo "Building Docker image: $(DOCKER_IMAGE)"
-    docker buildx build --target build-image --tag $(DOCKER_IMAGE) .
+	@echo "Building Docker image: $(DOCKER_IMAGE)"
+	docker buildx build --target build-image --tag $(DOCKER_IMAGE) .
 
 #===============================================
 # イメージのプッシュ
 #===============================================
 push: build
-    @echo "Pushing Docker image: $(DOCKER_IMAGE)"
-    docker push $(DOCKER_IMAGE)
+	@echo "Pushing Docker image: $(DOCKER_IMAGE)"
+	docker push $(DOCKER_IMAGE)
 
 #===============================================
 # ビルドしてからプッシュ
@@ -63,5 +63,5 @@ build-push:
 # クリーンアップ
 #===============================================
 clean:
-    @echo "Cleaning build artifacts..."
-    rm -rf node_modules/ build/ dist/
+	@echo "Cleaning build artifacts..."
+	rm -rf node_modules/ build/ dist/
