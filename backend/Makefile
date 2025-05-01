@@ -1,22 +1,60 @@
-# 2番目のバージョンタグを取得（プロジェクトのバージョン）
+#===============================================
+# 変数定義
+#===============================================
+# バージョン取得（プロジェクトのバージョン）
 VERSION := $(shell grep -m2 "<version>" pom.xml | tail -n1 | sed 's/.*<version>\(.*\)<\/version>.*/\1/')
-
 IMAGE_NAME := job-profile-api
-
 DOCKER_REGISTRY ?=
-
-REGISTRY_PREFIX := $(if $(DOCKER_REGISTRY), $(shell echo "$(DOCKER_REGISTRY)" | tr '[:upper:]' '[:lower:]')/)
-
+REGISTRY_PREFIX := $(if $(DOCKER_REGISTRY),$(shell echo "$(DOCKER_REGISTRY)" | tr '[:upper:]' '[:lower:]')/)
 DOCKER_IMAGE := $(REGISTRY_PREFIX)$(IMAGE_NAME):$(VERSION)
 
+#===============================================
+# PHONYターゲット宣言
+#===============================================
+.PHONY: help version test build push clean
+
+#===============================================
+# ヘルプ
+#===============================================
+help:
+	@echo "Available targets:"
+	@echo "  version     - Show current version"
+	@echo "  test        - Run unit tests"
+	@echo "  build       - Build Docker image"
+	@echo "  push        - Push Docker image to registry"
+	@echo "  clean       - Clean build artifacts"
+
+#===============================================
+# バージョン表示
+#===============================================
 version:
-	@echo $(VERSION)
+	@echo "Version: $(VERSION)"
+	@echo "Image: $(DOCKER_IMAGE)"
 
-build:
-	docker buildx build --target build-image --tag $(DOCKER_IMAGE) .
-
+#===============================================
+# テスト
+#===============================================
 test:
+	@echo "Running tests..."
 	docker buildx build --target mvn-test .
 
-push:
-	docker buildx build --target build-image --tag $(DOCKER_IMAGE) --push .
+#===============================================
+# ビルド
+#===============================================
+build:
+	@echo "Building Docker image: $(DOCKER_IMAGE)"
+	docker buildx build --target build-image --tag $(DOCKER_IMAGE) .
+
+#===============================================
+# イメージのプッシュ
+#===============================================
+push: build
+	@echo "Pushing Docker image: $(DOCKER_IMAGE)"
+	docker push $(DOCKER_IMAGE)
+
+#===============================================
+# クリーンアップ
+#===============================================
+clean:
+	@echo "Cleaning build artifacts..."
+	rm -rf target/
