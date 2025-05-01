@@ -53,6 +53,13 @@ push: build
 	docker push $(DOCKER_IMAGE)
 
 #===============================================
+# ビルドしてからプッシュ
+#===============================================
+build-push:
+	@echo "Building and pushing Docker image: $(DOCKER_IMAGE)"
+	docker buildx build --target build-image --tag $(DOCKER_IMAGE) . --push
+
+#===============================================
 # クリーンアップ
 #===============================================
 clean:
