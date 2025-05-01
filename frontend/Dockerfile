@@ -15,7 +15,7 @@ RUN --mount=type=cache,id=node_modules,target=node_modules npm run test
 FROM npm-install AS npm-build
 ARG NODE_ENV=development
 COPY .env.${NODE_ENV} .env
-COPY .browserlistrc .browserlistrc
+COPY .browserslistrc .browserslistrc
 COPY tailwind.config.js tailwind.config.js
 COPY craco.config.js craco.config.js
 COPY ./public ./public
