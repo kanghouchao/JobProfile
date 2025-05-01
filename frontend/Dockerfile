@@ -5,7 +5,8 @@ COPY package.json ./
 RUN --mount=type=cache,id=node_modules,target=node_modules npm install
 
 FROM npm-install AS npm-test
-ENV CI=true
+ARG CI
+ENV CI=${CI}
 COPY craco.config.js craco.config.js
 COPY ./public ./public
 COPY ./src ./src
