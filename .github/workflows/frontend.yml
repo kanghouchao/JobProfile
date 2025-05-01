@@ -12,6 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: ci
+        name: Test and Build
         uses: ./.github/actions/ci
         with:
           endpoint: frontend
