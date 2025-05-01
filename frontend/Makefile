@@ -36,7 +36,7 @@ version:
 #===============================================
 test:
 	@echo "Running tests..."
-	docker buildx build --target npm-test --build-arg CI=true .
+	docker buildx build --target npm-test --build-arg CI=true . --load
 
 #===============================================
 # ビルド
