@@ -10,4 +10,4 @@ const createAiService = (hc = createHttpClient("v1")) => ({
     },
 });
 
-export default createAiService();
+export default createAiService;

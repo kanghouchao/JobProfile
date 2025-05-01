@@ -41,4 +41,4 @@ const createAuthService = (hc = createHttpClient("v1")) => ({
     },
 });
 
-export default createAuthService();
+export default createAuthService;
