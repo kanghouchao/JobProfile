@@ -35,8 +35,8 @@ version:
 # テスト
 #===============================================
 test:
-	@echo "Running tests..."
-	docker buildx build --target npm-test --build-arg CI=true . --output=type=none
+	@echo "Running unit tests..."
+	docker buildx build --target npm-test --build-arg CI=true . --output=type=local,dest=./test-results
 
 #===============================================
 # ビルド
