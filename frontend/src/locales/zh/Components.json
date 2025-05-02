@@ -1,9 +1,9 @@
 {
-    "siteTitle": "简历系统",
-    "resume": "简历",
-    "jobProfile": "职务经历",
-    "pay": "支付",
-    "logout": "登出",
-    "message": "新消息",
-    "welcome": "欢迎使用本系统!"
+  "siteTitle": "简历系统",
+  "resume": "简历",
+  "jobProfile": "职务经历",
+  "pay": "支付",
+  "logout": "登出",
+  "message": "新消息",
+  "welcome": "欢迎使用本系统!"
 }

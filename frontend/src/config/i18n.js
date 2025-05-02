@@ -1,22 +1,22 @@
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
 const resources = {
   en: {
-    components: require("@/locales/en/Components.json"),
-    pages: require("@/locales/en/Pages.json"),
-    auth: require("@/locales/en/Auth.json"),
+    components: require('@/locales/en/Components.json'),
+    pages: require('@/locales/en/Pages.json'),
+    auth: require('@/locales/en/Auth.json'),
   },
   zh: {
-    components: require("@/locales/zh/Components.json"),
-    pages: require("@/locales/zh/Pages.json"),
-    auth: require("@/locales/zh/Auth.json"),
+    components: require('@/locales/zh/Components.json'),
+    pages: require('@/locales/zh/Pages.json'),
+    auth: require('@/locales/zh/Auth.json'),
   },
   ja: {
-    components: require("@/locales/ja/Components.json"),
-    pages: require("@/locales/ja/Pages.json"),
-    auth: require("@/locales/ja/Auth.json"),
+    components: require('@/locales/ja/Components.json'),
+    pages: require('@/locales/ja/Pages.json'),
+    auth: require('@/locales/ja/Auth.json'),
   },
 };
 
@@ -26,18 +26,18 @@ i18n
   .init({
     resources,
     backend: {
-      loadPath: "@/locales/{{lng}}/{{ns}}.json",
+      loadPath: '@/locales/{{lng}}/{{ns}}.json',
     },
-    preload: ["ja"],
-    fallbackLng: "ja",
+    preload: ['ja'],
+    fallbackLng: 'ja',
     debug: false,
     interpolation: { escapeValue: false },
     detection: {
-      order: ["localStorage", "navigator"],
-      caches: ["localStorage"],
+      order: ['localStorage', 'navigator'],
+      caches: ['localStorage'],
     },
-    ns: ["components", "pages", "auth"],
-    defaultNS: "auth",
+    ns: ['components', 'pages', 'auth'],
+    defaultNS: 'auth',
   });
 
 export default i18n;

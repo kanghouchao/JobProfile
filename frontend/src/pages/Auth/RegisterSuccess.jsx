@@ -8,8 +8,8 @@ const RegisterSuccess = () => {
           Registration Successful
         </h2>
         <p className="text-sm text-gray-600 mb-6 text-center">
-          A confirmation email has been sent to your inbox. Please check your
-          inbox (and possibly your spam folder) to complete your registration.
+          A confirmation email has been sent to your inbox. Please check your inbox (and possibly
+          your spam folder) to complete your registration.
         </p>
       </div>
     </div>
