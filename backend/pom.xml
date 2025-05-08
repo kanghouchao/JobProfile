@@ -116,7 +116,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
   <build>
     <plugins>
       <plugin>
@@ -130,6 +129,23 @@
             </exclude>
           </excludes>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.2.1</version>
+        <configuration>
+          <failOnViolation>true</failOnViolation>
+          <linkXRef>false</linkXRef>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>validate</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
