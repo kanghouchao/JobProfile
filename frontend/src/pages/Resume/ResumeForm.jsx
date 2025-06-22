@@ -1,154 +1,134 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
+import { Outlet, useNavigate, useLocation, Link } from 'react-router-dom';
+import ResumeBasicStep from './ResumeBasicStep';
+import ResumeHistoryStep from './ResumeHistoryStep';
+import ResumeLicenseStep from './ResumeLicenseStep';
+import ResumePRStep from './ResumePRStep';
+
+const steps = [
+  { label: '基本情報', key: 'basic' },
+  { label: '学歴・職歴', key: 'history' },
+  { label: '免許・資格', key: 'license' },
+  { label: '自己PR', key: 'pr' },
+];
+
+const stepKeyToIndex = steps.reduce((acc, s, i) => { acc[s.key] = i; return acc; }, {});
 
 const ResumeForm = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const currentStepKey = location.pathname.split('/').pop();
+  const [form, setForm] = useState({});
+  const step = stepKeyToIndex[currentStepKey] ?? 0;
+
+  const onChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  }, []);
+
+  const goStep = (idx) => navigate(`/resume/${steps[idx].key}`);
+  const nextStep = () => goStep(Math.min(step + 1, steps.length - 1));
+  const prevStep = () => goStep(Math.max(step - 1, 0));
+
+  // AI对话相关
+  const [aiInput, setAiInput] = useState('');
+  const [aiMessages, setAiMessages] = useState([
+    { role: 'ai', text: 'こんにちは！履歴書作成をお手伝いします。ご質問やご要望をどうぞ。' }
+  ]);
+  const handleAiSend = () => {
+    if (!aiInput.trim()) return;
+    setAiMessages((msgs) => [
+      ...msgs,
+      { role: 'user', text: aiInput }
+    ]);
+    setTimeout(() => {
+      setAiMessages((msgs) => [
+        ...msgs,
+        { role: 'ai', text: '（AIのサンプル応答）: ' + aiInput }
+      ]);
+    }, 600);
+    setAiInput('');
+  };
+
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-md overflow-y-auto">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">履歴書</h1>
-
-      {/* 基本情報セクション */}
-      <table className="w-full border-collapse border border-gray-300 mb-6">
-        <tbody>
-          <tr>
-            <td className="border border-gray-300 p-2 bg-gray-100 w-1/4">氏名</td>
-            <td className="border border-gray-300 p-2">
-              <input
-                type="text"
-                placeholder="氏名を入力"
-                className="w-full border rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-300"
-              />
-            </td>
-            <td className="border border-gray-300 p-2 bg-gray-100 w-1/4">ふりがな</td>
-            <td className="border border-gray-300 p-2">
-              <input
-                type="text"
-                placeholder="ふりがなを入力"
-                className="w-full border rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-300"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td className="border border-gray-300 p-2 bg-gray-100">生年月日</td>
-            <td className="border border-gray-300 p-2">
-              <input
-                type="date"
-                className="w-full border rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-300"
-              />
-            </td>
-            <td className="border border-gray-300 p-2 bg-gray-100">性別</td>
-            <td className="border border-gray-300 p-2">
-              <select className="w-full border rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-300">
-                <option value="">選択してください</option>
-                <option value="male">男性</option>
-                <option value="female">女性</option>
-              </select>
-            </td>
-          </tr>
-          <tr>
-            <td className="border border-gray-300 p-2 bg-gray-100">住所</td>
-            <td colSpan="3" className="border border-gray-300 p-2">
-              <input
-                type="text"
-                placeholder="住所を入力"
-                className="w-full border rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-300"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td className="border border-gray-300 p-2 bg-gray-100">電話番号</td>
-            <td className="border border-gray-300 p-2">
-              <input
-                type="tel"
-                placeholder="電話番号を入力"
-                className="w-full border rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-300"
-              />
-            </td>
-            <td className="border border-gray-300 p-2 bg-gray-100">メールアドレス</td>
-            <td className="border border-gray-300 p-2">
-              <input
-                type="email"
-                placeholder="メールアドレスを入力"
-                className="w-full border rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-300"
-              />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      {/* 学歴・職歴セクション */}
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">学歴・職歴</h2>
-        <table className="w-full border-collapse border border-gray-300">
-          <thead>
-            <tr>
-              <th className="border border-gray-300 p-2 bg-gray-100">期間</th>
-              <th className="border border-gray-300 p-2 bg-gray-100">内容</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td className="border border-gray-300 p-2">
-                <input
-                  type="text"
-                  placeholder="例: 2020年4月 - 2024年3月"
-                  className="w-full border rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-300"
-                />
-              </td>
-              <td className="border border-gray-300 p-2">
-                <input
-                  type="text"
-                  placeholder="例: ○○大学 ○○学部卒業"
-                  className="w-full border rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-300"
-                />
-              </td>
-            </tr>
-            <tr>
-              <td className="border border-gray-300 p-2">
-                <input
-                  type="text"
-                  placeholder="例: 2024年4月 - 現在"
-                  className="w-full border rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-300"
-                />
-              </td>
-              <td className="border border-gray-300 p-2">
-                <input
-                  type="text"
-                  placeholder="例: ○○株式会社 ○○部勤務"
-                  className="w-full border rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-300"
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-
-      {/* 免許・資格セクション */}
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">免許・資格</h2>
-        <textarea
-          placeholder="例: 2023年7月 普通自動車免許取得"
-          rows="3"
-          className="w-full border rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-300"
-        ></textarea>
-      </section>
-
-      {/* 自己PR */}
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">自己PR</h2>
-        <textarea
-          placeholder="例: 私の強みは..."
-          rows="4"
-          className="w-full border rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-300"
-        ></textarea>
-      </section>
-
-      {/* ボタン */}
-      <div className="flex justify-end gap-4">
-        <button className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400">
-          キャンセル
-        </button>
-        <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
-          保存
-        </button>
+    <div className="w-full h-full bg-white flex">
+      {/* 左：AI对话 */}
+      <div className="w-[30%] border-r border-gray-200 p-4 flex flex-col">
+        <h2 className="text-xl font-bold text-blue-600 mb-2">AIアシスタント</h2>
+        <div className="flex-1 overflow-y-auto bg-gray-50 rounded p-2 mb-2 space-y-2">
+          {aiMessages.map((msg, i) => (
+            <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+              <div className={`px-3 py-2 rounded-lg text-sm max-w-[80%] ${msg.role === 'user' ? 'bg-blue-100 text-blue-900' : 'bg-gray-200 text-gray-700'}`}>
+                {msg.text}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="flex gap-2">
+          <input
+            className="flex-1 border rounded-md p-2 focus:outline-none focus:ring focus:ring-blue-300"
+            value={aiInput}
+            onChange={e => setAiInput(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleAiSend(); } }}
+            placeholder="AIに質問・依頼..."
+          />
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+            onClick={handleAiSend}
+          >送信</button>
+        </div>
+      </div>
+      {/* 右：履歴書フォーム */}
+      <div className="w-[70%] p-4 flex flex-col">
+        <h1 className="text-2xl font-bold text-gray-800 mb-6">履歴書</h1>
+        {/* ステップインジケーター */}
+        <div className="flex items-center mb-8">
+          {steps.map((s, idx) => (
+            <React.Fragment key={s.key}>
+              <Link
+                to={`/resume/${s.key}`}
+                className={`flex items-center cursor-pointer ${idx === step ? 'text-blue-600 font-bold underline' : 'text-gray-400 hover:text-blue-400'}`}
+              >
+                {s.label}
+              </Link>
+              {idx < steps.length - 1 && (
+                <div className="flex-1 h-0.5 bg-gray-200 mx-2" />
+              )}
+            </React.Fragment>
+          ))}
+        </div>
+        <div className="flex-1 overflow-y-auto">
+          {step === 0 && <ResumeBasicStep form={form} onChange={onChange} />}
+          {step === 1 && <ResumeHistoryStep form={form} onChange={onChange} />}
+          {step === 2 && <ResumeLicenseStep form={form} onChange={onChange} />}
+          {step === 3 && <ResumePRStep form={form} onChange={onChange} />}
+        </div>
+        <div className="flex justify-between gap-4 mt-8">
+          <button
+            className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400"
+            onClick={prevStep}
+            disabled={step === 0}
+          >
+            戻る
+          </button>
+          <div className="flex gap-4">
+            <button className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400">
+              キャンセル
+            </button>
+            {step < steps.length - 1 ? (
+              <button
+                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                onClick={nextStep}
+              >
+                次へ
+              </button>
+            ) : (
+              <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+                保存
+              </button>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

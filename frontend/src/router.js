@@ -4,6 +4,10 @@ import Home from '@/pages/Home';
 import ResumeForm, { JobHistoryForm } from '@/pages/Resume';
 import PayPage from '@/pages/Pay';
 import Register, { Login, PasswordSetting, RegisterSuccess, ForgotPassword } from '@/pages/Auth';
+import ResumeBasicStep from '@/pages/Resume/ResumeBasicStep';
+import ResumeHistoryStep from '@/pages/Resume/ResumeHistoryStep';
+import ResumeLicenseStep from '@/pages/Resume/ResumeLicenseStep';
+import ResumePRStep from '@/pages/Resume/ResumePRStep';
 
 const router = createBrowserRouter(
   [
@@ -12,7 +16,16 @@ const router = createBrowserRouter(
       element: <Layout />,
       children: [
         { index: true, element: <Home /> },
-        { path: 'resume', element: <ResumeForm /> },
+        {
+          path: 'resume',
+          element: <ResumeForm />,
+          children: [
+            { path: 'basic', element: <ResumeBasicStep /> },
+            { path: 'history', element: <ResumeHistoryStep /> },
+            { path: 'license', element: <ResumeLicenseStep /> },
+            { path: 'pr', element: <ResumePRStep /> },
+          ],
+        },
         { path: 'job-history', element: <JobHistoryForm /> },
         { path: 'pay', element: <PayPage /> },
       ],
