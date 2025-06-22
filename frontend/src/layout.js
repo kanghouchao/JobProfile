@@ -9,8 +9,9 @@ const Layout = () => {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (!token) {
-      // navigate('/login');
+    const skipAuth = process.env.REACT_APP_SKIP_AUTH === 'true';
+    if (!token && !skipAuth) {
+      navigate('/login');
     }
   }, [navigate]);
 

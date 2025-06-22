@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Outlet, useNavigate, useLocation, Link } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import ResumeBasicStep from './ResumeBasicStep';
 import ResumeHistoryStep from './ResumeHistoryStep';
 import ResumeLicenseStep from './ResumeLicenseStep';
@@ -18,8 +18,9 @@ const ResumeForm = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const currentStepKey = location.pathname.split('/').pop();
+  const validStepKeys = new Set(steps.map((s) => s.key));
   const [form, setForm] = useState({});
-  const step = stepKeyToIndex[currentStepKey] ?? 0;
+  const step = validStepKeys.has(currentStepKey) ? stepKeyToIndex[currentStepKey] : 0;
 
   const onChange = useCallback((e) => {
     const { name, value } = e.target;
@@ -29,6 +30,19 @@ const ResumeForm = () => {
   const goStep = (idx) => navigate(`/resume/${steps[idx].key}`);
   const nextStep = () => goStep(Math.min(step + 1, steps.length - 1));
   const prevStep = () => goStep(Math.max(step - 1, 0));
+
+  const handleCancel = () => {
+    // 清空表单数据并返回首页
+    setForm({});
+    navigate('/');
+  };
+
+  const handleSave = () => {
+    // 保存表单数据的逻辑
+    console.log('保存履歴書データ:', form);
+    // TODO: 实际保存到后端API
+    alert('履歴書が保存されました！');
+  };
 
   // AI对话相关
   const [aiInput, setAiInput] = useState('');
@@ -112,7 +126,10 @@ const ResumeForm = () => {
             戻る
           </button>
           <div className="flex gap-4">
-            <button className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400">
+            <button
+              className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400"
+              onClick={handleCancel}
+            >
               キャンセル
             </button>
             {step < steps.length - 1 ? (
@@ -123,7 +140,10 @@ const ResumeForm = () => {
                 次へ
               </button>
             ) : (
-              <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
+              <button
+                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                onClick={handleSave}
+              >
                 保存
               </button>
             )}
