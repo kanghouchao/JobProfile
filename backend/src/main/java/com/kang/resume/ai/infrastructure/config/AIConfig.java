@@ -8,6 +8,7 @@ import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -15,6 +16,11 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 class AIConfig {
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
+    }
 
     @Value("${app.openai.key}")
     private String apiKey;
@@ -26,8 +32,8 @@ class AIConfig {
     }
 
     @Bean
-    AiService aiService(ChatAiClient chatAiClient) {
-        return new ChatAiService(chatAiClient);
+    AiService aiService(ChatAiClient chatAiClient, ObjectMapper objectMapper) {
+        return new ChatAiService(chatAiClient, objectMapper);
     }
 
     @Bean

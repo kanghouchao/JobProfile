@@ -1,6 +1,8 @@
 package com.kang.resume.ai.interfaces;
 
 import com.kang.resume.ai.domain.AiService;
+import com.kang.resume.ai.interfaces.web.request.GenerateResumeRequest;
+import com.kang.resume.ai.interfaces.web.response.GenerateResumeResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +20,7 @@ public class AiController {
     private final AiService aiService;
 
     @PostMapping("/generate")
-    public String generateResponse(@RequestBody String userInfo) {
-        return aiService.generateResponse(userInfo);
+    public GenerateResumeResponse generateResponse(@RequestBody GenerateResumeRequest request) {
+        return aiService.generateResponse(request.getPersonalExperienceDescription());
     }
 }
