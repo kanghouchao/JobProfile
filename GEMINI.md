@@ -4,7 +4,7 @@
 
 ## 1. 项目概览
 
-该项目是一个名为“职位档案”的 Web 应用程序，旨在解决创建日式简历时遇到的困扰，并通过集成 AI 来简化繁琐的信息录入过程。它由两部分组成：
+该项目是一个名为“职位档案”的 Web 应用程序，旨在解决创建日式简历时遇到的困扰，并通过集成 AI 来简化繁琐的信息录入过程。其核心功能之一是利用 AI 将用户的自然语言描述（如个人经历）转换为符合前端数据结构的标准化 JSON 格式简历数据，从而实现简历的自动生成与填充。它由两部分组成：
 
 * **`backend`**：一个基于 Java 的 API，使用 Spring Boot 构建。
 * **`frontend`**：一个基于 React 的单页应用程序。
@@ -21,7 +21,7 @@
 * **数据库**：MySQL，使用 Liquibase 进行模式迁移
 * **API**：RESTful API，可能使用 Spring Web MVC
 * **安全**：Spring Security, JWT
-* **其他**：Spring Data JPA, Spring AI, Lombok, Vavr
+* **其他**：Spring Data JPA, Spring AI, Lombok, Vavr, 遵循领域驱动设计（DDD）原则
 
 ### 前端
 
