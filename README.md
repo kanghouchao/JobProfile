@@ -40,7 +40,7 @@ cd JobProfile
 
 `.env` ファイルをプロジェクトのルートディレクトリに作成してください。プロジェクトに含まれる `env.example` ファイルを参考に、以下のような必要な設定を記述してください：
 
-```
+``` dotenv
 MYSQL_DATABASE=JOB_PROFILE
 MYSQL_USER=user
 MYSQL_PASSWORD=password
@@ -59,7 +59,7 @@ JOB_PROFILE_SITE_DOMAIN=http://localhost
 make up
 ```
 
-ブラウザで http://localhost にアクセスしてアプリケーションを使用できます。
+ブラウザで [http://localhost](http://localhost) にアクセスしてアプリケーションを使用できます。
 
 ### 4. プロジェクトの停止
 
@@ -100,7 +100,8 @@ AI履歴書生成機能を使用するには、OpenAI APIキーが必要です�
 1. [OpenAIのウェブサイト](https://platform.openai.com/)にアクセスしてアカウントを作成
 2. APIキーを生成（[APIキー管理ページ](https://platform.openai.com/account/api-keys)）
 3. `.env`ファイルに以下の形式で追加：
-   ```
+
+   ``` dotenv
    OPENAI_API_KEY=your_api_key_here
    ```
 
@@ -109,4 +110,3 @@ APIキーの利用には料金が発生する可能性があります。詳細�
 ---
 
 これでプロジェクトのセットアップと基本的な利用が可能になります。問題や疑問がある場合は、Issueを作成してお知らせください！
-
