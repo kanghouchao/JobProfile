@@ -13,7 +13,9 @@ import java.util.Objects;
  */
 public class GenderSerializer extends JsonSerializer<Gender> {
     @Override
-    public void serialize(Gender gender, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+    public void serialize(final Gender gender,
+                          final JsonGenerator jsonGenerator,
+                          final SerializerProvider serializerProvider) throws IOException {
         if (Objects.nonNull(gender)) {
             jsonGenerator.writeStartObject();
             jsonGenerator.writeNumberField("code", gender.getCode());

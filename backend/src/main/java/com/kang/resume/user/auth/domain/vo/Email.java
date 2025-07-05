@@ -8,17 +8,24 @@ import lombok.NoArgsConstructor;
 @Embeddable
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Email {
+public final class Email {
     private String value;
 
-    private Email(String value) {
+    private Email(final String value) {
         if (value == null || !value.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
             throw new IllegalArgumentException("Invalid email format");
         }
         this.value = value.toLowerCase().trim();
     }
 
-    public static Email of(String value) {
+    /**
+     * Creates an Email instance from a string value.
+     *
+     * @param value The email address string.
+     * @return A new Email instance.
+     * @throws IllegalArgumentException if the email format is invalid.
+     */
+    public static Email of(final String value) {
         return new Email(value);
     }
 

@@ -15,22 +15,47 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
-public class RegistrationService {
+public final class RegistrationService {
 
+    /**
+     * Repository for user data access.
+     */
     private final UserRepository userRepository;
+    /**
+     * Service for sending emails.
+     */
     private final EmailService emailService;
+    /**
+     * Encoder for user passwords.
+     */
     private final PasswordEncoder passwordEncoder;
+    /**
+     * Utility for retrieving internationalized messages.
+     */
     private final MessageSourceUtil messageSource;
+    /**
+     * Properties related to the site, such as URLs.
+     */
     private final SiteProperties siteProperties;
 
+    /**
+     * Initiates the user registration process.
+     * If the email is already registered and verified, an exception is thrown.
+     * If the email is registered but not verified, the verification token is refreshed.
+     * Otherwise, a new unverified user is created.
+     * A verification email is then sent to the user.
+     *
+     * @param emailStr The email address of the user to register.
+     */
     @Transactional
-    public void initiateRegistration(String emailStr) {
-        Email email = Email.of(emailStr);
-        
-        User user = userRepository.findByEmail(email)
+    public void initiateRegistration(final String emailStr) {
+        final Email email = Email.of(emailStr);
+
+        final User user = userRepository.findByEmail(email)
                 .map(existingUser -> {
                     if (existingUser.isEnabled()) {
-                        throw new IllegalStateException(messageSource.getMessage("error.auth.email.registered"));
+                        throw new IllegalStateException(
+                                messageSource.getMessage("error.auth.email.registered"));
                     }
                     existingUser.refreshVerificationToken();
                     return existingUser;
@@ -38,26 +63,36 @@ public class RegistrationService {
                 .orElseGet(() -> User.createUnverifiedUser(email));
 
         userRepository.save(user);
-        
-        String verificationLink = siteProperties.buildRegisterVerificationUrl(
-            user.getEmail().getValue(), 
-            user.getVerificationToken()
+
+        final String verificationLink = siteProperties.buildRegisterVerificationUrl(
+                user.getEmail().getValue(),
+                user.getVerificationToken()
         );
-        
+
         emailService.sendVerificationEmail(
-            user.getEmail().getValue(), 
-            verificationLink, 
-            LocaleContextHolder.getLocale()
+                user.getEmail().getValue(),
+                verificationLink,
+                LocaleContextHolder.getLocale()
         );
     }
 
+    /**
+     * Completes the user registration process.
+     * Verifies the provided email and token, then sets the user's password and enables the account.
+     *
+     * @param email The email address of the user.
+     * @param token The verification token received by the user.
+     * @param password The chosen password for the user's account.
+     */
     @Transactional
-    public void completeRegistration(String email, String token, String password) {
-        User user = userRepository.findByEmailAndVerificationToken(Email.of(email), token)
-                .orElseThrow(() -> new IllegalStateException(messageSource.getMessage("error.auth.token.invalid")));
+    public void completeRegistration(final String email, final String token, final String password) {
+        final User user = userRepository.findByEmailAndVerificationToken(Email.of(email), token)
+                .orElseThrow(() -> new IllegalStateException(
+                        messageSource.getMessage("error.auth.token.invalid")));
 
         if (user.getTokenExpiryTime().isBefore(LocalDateTime.now())) {
-            throw new IllegalStateException(messageSource.getMessage("registration.token.expired"));
+            throw new IllegalStateException(
+                    messageSource.getMessage("registration.token.expired"));
         }
 
         user.setPassword(passwordEncoder.encode(password));
@@ -65,7 +100,7 @@ public class RegistrationService {
         user.setEmailVerified(true);
         user.setVerificationToken(null);
         user.setTokenExpiryTime(null);
-        
+
         userRepository.save(user);
     }
 }

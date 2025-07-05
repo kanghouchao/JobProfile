@@ -28,15 +28,15 @@ public class SpringEmailService implements EmailService {
 
     @Override
     @Async
-    public void sendVerificationEmail(String to, String verificationLink, Locale locale) {
+    public void sendVerificationEmail(final String to, final String verificationLink, final Locale locale) {
         try {
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            final MimeMessage message = mailSender.createMimeMessage();
+            final MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
-            Context context = new Context(locale);
+            final Context context = new Context(locale);
             context.setVariable("verificationLink", verificationLink);
 
-            String content = templateEngine.process("verification-email", context);
+            final String content = templateEngine.process("verification-email", context);
 
             helper.setFrom(fromEmail);
             helper.setTo(to);
@@ -44,7 +44,7 @@ public class SpringEmailService implements EmailService {
             helper.setText(content, true);
 
             mailSender.send(message);
-        } catch (MessagingException e) {
+        } catch (final MessagingException e) {
             throw new RuntimeException("Failed to send verification email", e);
         }
     }

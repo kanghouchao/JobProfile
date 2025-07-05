@@ -4,7 +4,13 @@ public record LoginResponse(
     String token,
     String tokenType
 ) {
-    public static LoginResponse of(String token) {
+    /**
+     * Creates a new LoginResponse instance with the given token.
+     *
+     * @param token The JWT token.
+     * @return A new LoginResponse instance.
+     */
+    public static LoginResponse of(final String token) {
         return new LoginResponse(token, "Bearer");
     }
 }

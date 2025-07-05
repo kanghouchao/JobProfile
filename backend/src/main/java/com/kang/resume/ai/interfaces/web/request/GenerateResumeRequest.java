@@ -3,6 +3,9 @@ package com.kang.resume.ai.interfaces.web.request;
 import lombok.Data;
 
 @Data
-public class GenerateResumeRequest {
+public final class GenerateResumeRequest {
+    /**
+     * Description of personal experience for resume generation.
+     */
     private String personalExperienceDescription;
 }

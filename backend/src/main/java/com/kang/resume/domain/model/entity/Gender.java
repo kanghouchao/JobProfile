@@ -8,17 +8,40 @@ import lombok.Getter;
 @Getter
 public enum Gender {
 
-    MAN(0, "男"), WOMAN(1, "女"), UNKNOWN(10, "未知");
+    /**
+     * Represents male gender with code 0.
+     */
+    MAN(0, "男"),
+    /**
+     * Represents female gender with code 1.
+     */
+    WOMAN(1, "女"),
+    /**
+     * Represents unknown gender with code 10.
+     */
+    UNKNOWN(10, "未知");
 
+    /**
+     * The integer code representing the gender.
+     */
     private final int code;
+    /**
+     * The description of the gender.
+     */
     private final String desc;
 
-    Gender(int code, String desc) {
-        this.code = code;
-        this.desc = desc;
+    Gender(final int genderCode, final String genderDesc) {
+        this.code = genderCode;
+        this.desc = genderDesc;
     }
 
-    public static Gender fromCode(int code) {
+    /**
+     * Returns the Gender enum based on the provided code.
+     *
+     * @param code The integer code of the gender.
+     * @return The corresponding Gender enum.
+     */
+    public static Gender fromCode(final int code) {
         return switch (code) {
             case 0 -> MAN;
             case 1 -> WOMAN;

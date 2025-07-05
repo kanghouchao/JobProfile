@@ -22,7 +22,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return userRepository.findByEmail(Email.of(email))
                 .orElseThrow(() -> new UsernameNotFoundException(
-                    messageSource.getMessage("error.auth.email.not.found", email)
-                ));
+                        messageSource.getMessage("error.auth.email.not.found", email)));
     }
 }

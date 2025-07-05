@@ -12,7 +12,7 @@ public class ChatAiClient {
 
     private final ChatModel chatModel;
 
-    private final static String RESUME_PROMPT = """
+    private static final String RESUME_PROMPT = """
         请扮演一个有关简历生成的专家，我会给你一段关于用户的个人经历的描述，请你根据这些信息生成JSON格式的简历内容。
         请注意，JSON格式的内容必须是有效的JSON格式，不能有任何语法错误。
         另外，我只需要JSON格式的内容，不需要任何其他的文字描述。
@@ -36,7 +36,13 @@ public class ChatAiClient {
         现在我需要处理的用户信息是：
         """;
 
-    public String getResumeJSON(String userInfo) {
+    /**
+     * Retrieves resume data in JSON format from the AI based on user information.
+     *
+     * @param userInfo The user's personal experience description.
+     * @return A JSON string containing the generated resume data.
+     */
+    public String getResumeJSON(final String userInfo) {
         final ChatClient client = ChatClient.create(this.chatModel);
         return client.prompt(RESUME_PROMPT + userInfo).call().content();
     }

@@ -20,6 +20,7 @@ const router = createBrowserRouter(
           path: 'resume',
           element: <ResumeForm />,
           children: [
+            { index: true, element: <ResumeBasicStep /> },
             { path: 'basic', element: <ResumeBasicStep /> },
             { path: 'history', element: <ResumeHistoryStep /> },
             { path: 'license', element: <ResumeLicenseStep /> },

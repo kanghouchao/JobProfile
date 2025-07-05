@@ -24,6 +24,12 @@ public class InternationalizationConfig {
         return resolver;
     }
 
+    /**
+     * Configures and provides the MessageSource bean for internationalization.
+     * It sets the base names for message bundles and default encoding.
+     *
+     * @return The configured MessageSource.
+     */
     @Bean
     public ResourceBundleMessageSource messageSource() {
         ResourceBundleMessageSource source = new ResourceBundleMessageSource();

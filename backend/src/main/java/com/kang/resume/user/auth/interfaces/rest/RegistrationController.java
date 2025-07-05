@@ -6,7 +6,11 @@ import com.kang.resume.user.auth.interfaces.web.request.InitiateRegistrationRequ
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/auth/register")
@@ -22,14 +26,16 @@ public class RegistrationController {
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * Completes the user registration process.
+     *
+     * @param request The request containing user registration completion details.
+     * @return A ResponseEntity indicating the success of the operation.
+     */
     @PostMapping("/complete")
     public ResponseEntity<Void> completeRegistration(
-            @RequestBody @Valid CompleteRegistrationRequest request) {
-        registrationService.completeRegistration(
-            request.email(),
-            request.token(),
-            request.password()
-        );
+            @RequestBody @Valid final CompleteRegistrationRequest request) {
+        registrationService.completeRegistration(request.email(), request.token(), request.password());
         return ResponseEntity.ok().build();
     }
 }

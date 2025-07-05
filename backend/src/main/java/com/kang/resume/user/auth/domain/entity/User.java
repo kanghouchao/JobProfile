@@ -15,6 +15,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.UUID;
 
+import static com.kang.resume.common.constant.Constants.VERIFICATION_TOKEN_EXPIRY_HOURS;
+
+
+
 @Entity
 @Table(name = "users")
 @Getter
@@ -57,7 +61,7 @@ public class User implements UserDetails {
 
     public void refreshVerificationToken() {
         this.verificationToken = UUID.randomUUID().toString();
-        this.tokenExpiryTime = LocalDateTime.now().plusHours(24);
+        this.tokenExpiryTime = LocalDateTime.now().plusHours(VERIFICATION_TOKEN_EXPIRY_HOURS);
     }
 
     @Override
@@ -67,7 +71,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email.getValue();
+        return email.value();
     }
 
     @Override

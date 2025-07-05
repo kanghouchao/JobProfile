@@ -18,14 +18,21 @@ public class AuthenticationService {
     private final JwtService jwtService;
 
     @Transactional(readOnly = true)
-    public String authenticate(String emailStr, String password) {
-        Email email = Email.of(emailStr);
-        
-        Authentication authentication = authenticationManager.authenticate(
-            new UsernamePasswordAuthenticationToken(email.getValue(), password)
+    /**
+     * Authenticates a user with the provided email and password.
+     *
+     * @param emailStr The email address of the user.
+     * @param password The password of the user.
+     * @return A JWT token if authentication is successful.
+     */
+    public String authenticate(final String emailStr, final String password) {
+        final Email email = Email.of(emailStr);
+
+        final Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(email.getValue(), password)
         );
-        
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        final UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         return jwtService.generateToken(userDetails);
     }
 }

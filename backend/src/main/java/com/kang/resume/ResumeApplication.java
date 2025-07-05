@@ -2,16 +2,22 @@ package com.kang.resume;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableAsync;
 
 /**
- * @author kanghouchao
+ * Main application class for the Resume project.
  */
-@EnableAsync
 @SpringBootApplication
-public class ResumeApplication {
+public final class ResumeApplication {
 
-    public static void main(String[] args) {
+    private ResumeApplication() {
+        // Private constructor to prevent instantiation
+    }
+
+    /**
+     * Main method to start the Spring Boot application.
+     * @param args command line arguments
+     */
+    public static void main(final String[] args) {
         SpringApplication.run(ResumeApplication.class, args);
     }
 

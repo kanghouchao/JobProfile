@@ -20,29 +20,60 @@ import java.time.LocalDate;
 @Data
 @Entity
 @Table(name = "persons")
-public class Person {
+public final class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    /**
+     * Unique identifier for the person.
+     */
     private Long id;
 
+    /**
+     * The associated user account.
+     */
     @OneToOne
     private User user;
 
+    /**
+     * The first name of the person.
+     */
     private String firstName;
+    /**
+     * The phonetic reading of the first name (kana).
+     */
     private String firstNameKana;
 
+    /**
+     * The last name of the person.
+     */
     private String lastName;
+    /**
+     * The phonetic reading of the last name (kana).
+     */
     private String lastNameKana;
 
+    /**
+     * The birthday of the person.
+     */
     private LocalDate birthday;
 
+    /**
+     * The gender of the person, converted to/from a TINYINT in the database.
+     */
     @Column(columnDefinition = "TINYINT")
     @Convert(converter = GenderConverter.class)
     private Gender gender;
 
+    /**
+     * The email address of the person.
+     */
     private String email;
 
+    /**
+     * The phone number of the person.
+     */
     private String phone;
 
 }
+

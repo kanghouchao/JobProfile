@@ -34,8 +34,7 @@ public class SecurityConfig {
             .cors(cors -> cors.configure(http))
             .csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            )
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authenticationProvider(authenticationProvider())
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
@@ -55,8 +54,22 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Provides the AuthenticationManager bean.
+     *
+     * @param config The AuthenticationConfiguration.
+     * @return The AuthenticationManager.
+     * @throws Exception If an error occurs during configuration.
+     */
+    /**
+     * Provides the AuthenticationManager bean.
+     *
+     * @param config The AuthenticationConfiguration.
+     * @return The AuthenticationManager.
+     * @throws Exception If an error occurs during configuration.
+     */
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    public AuthenticationManager authenticationManager(final AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 }

@@ -14,7 +14,14 @@ public class SiteProperties {
     private String domain;
     private String registerPath;
 
-    public String buildRegisterVerificationUrl(String email, String token) {
+    /**
+     * Builds the complete URL for user registration verification.
+     *
+     * @param email The email address of the user.
+     * @param token The verification token.
+     * @return The complete registration verification URL.
+     */
+    public String buildRegisterVerificationUrl(final String email, final String token) {
         return String.format("%s://%s%s?email=%s&token=%s",
                 scheme, domain, registerPath, email, token);
     }

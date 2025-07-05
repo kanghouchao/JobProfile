@@ -15,12 +15,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/ai")
 @RequiredArgsConstructor
-public class AiController {
+public final class AiController {
 
+    /**
+     * Service for AI operations.
+     */
     private final AiService aiService;
 
+    /**
+     * Generates a resume response based on the provided request.
+     *
+     * @param request The request containing personal experience description.
+     * @return The generated resume response.
+     */
     @PostMapping("/generate")
-    public GenerateResumeResponse generateResponse(@RequestBody GenerateResumeRequest request) {
-        return aiService.generateResponse(request.getPersonalExperienceDescription());
+    public GenerateResumeResponse generateResponse(@RequestBody final GenerateResumeRequest request) {
+        return aiService.generateResponse(request.personalExperienceDescription());
     }
 }

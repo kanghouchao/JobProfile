@@ -20,7 +20,7 @@ public class AuthenticationController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody @Valid LoginRequest request) {
-        String token = authenticationService.authenticate(request.email(), request.password());
+        final String token = authenticationService.authenticate(request.email(), request.password());
         return ResponseEntity.ok(LoginResponse.of(token));
     }
 }

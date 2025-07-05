@@ -17,13 +17,27 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 class AIConfig {
 
+    /**
+     * OpenAI API key, loaded from application properties.
+     */
+    @Value("${app.openai.key}")
+    private String apiKey;
+
+    /**
+     * Provides an ObjectMapper bean for JSON processing.
+     *
+     * @return The configured ObjectMapper.
+     */
     @Bean
     public ObjectMapper objectMapper() {
         return new ObjectMapper();
     }
 
-    @Value("${app.openai.key}")
-    private String apiKey;
+    /**
+     * Provides a ChatModel bean for OpenAI chat interactions.
+     *
+     * @return The configured ChatModel.
+     */
     @Bean
     ChatModel chatModel() {
         return OpenAiChatModel.builder()
@@ -31,13 +45,27 @@ class AIConfig {
             .build();
     }
 
+    /**
+     * Provides an AiService bean.
+     *
+     * @param chatAiClient The ChatAiClient dependency.
+     * @param objectMapper The ObjectMapper dependency.
+     * @return The configured AiService.
+     */
     @Bean
-    AiService aiService(ChatAiClient chatAiClient, ObjectMapper objectMapper) {
+    AiService aiService(final ChatAiClient chatAiClient,
+                        final ObjectMapper objectMapper) {
         return new ChatAiService(chatAiClient, objectMapper);
     }
 
+    /**
+     * Provides a ChatAiClient bean.
+     *
+     * @param chatModel The ChatModel dependency.
+     * @return The configured ChatAiClient.
+     */
     @Bean
-    ChatAiClient chatAiClient(ChatModel chatModel) {
+    ChatAiClient chatAiClient(final ChatModel chatModel) {
         return new ChatAiClient(chatModel);
     }
 }
