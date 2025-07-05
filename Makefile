@@ -105,6 +105,6 @@ shutdown:
 	@echo "Stopping services..."
 	$(DOCKER_COMPOSE) down
 
-start: build-all up log
+start: build-all up
 
 restart: shutdown start

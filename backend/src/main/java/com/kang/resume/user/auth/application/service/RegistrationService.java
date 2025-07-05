@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
-public final class RegistrationService {
+public class RegistrationService {
 
     /**
      * Repository for user data access.

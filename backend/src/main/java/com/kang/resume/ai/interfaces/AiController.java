@@ -30,6 +30,6 @@ public final class AiController {
      */
     @PostMapping("/generate")
     public GenerateResumeResponse generateResponse(@RequestBody final GenerateResumeRequest request) {
-        return aiService.generateResponse(request.personalExperienceDescription());
+        return aiService.generateResponse(request.getPersonalExperienceDescription());
     }
 }

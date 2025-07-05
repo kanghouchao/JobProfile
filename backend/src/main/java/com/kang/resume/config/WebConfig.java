@@ -11,7 +11,7 @@ import static com.kang.resume.common.constant.Constants.CORS_MAX_AGE_SECONDS;
 
 @Configuration
 @RequiredArgsConstructor
-public final class WebConfig implements WebMvcConfigurer {
+public class WebConfig implements WebMvcConfigurer {
 
     /**
      * Site properties for configuring CORS origins.
@@ -25,7 +25,7 @@ public final class WebConfig implements WebMvcConfigurer {
      */
     @Override
     public void addCorsMappings(@NonNull final CorsRegistry registry) {
-        final String origin = String.format("%s://%s", siteProperties.scheme(), siteProperties.domain());
+        final String origin = String.format("%s://%s", siteProperties.getScheme(), siteProperties.getDomain());
 
         registry.addMapping("/api/**")
                 .allowedOrigins(origin)

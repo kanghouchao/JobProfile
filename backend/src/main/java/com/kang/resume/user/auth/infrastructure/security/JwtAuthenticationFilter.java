@@ -14,6 +14,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import static com.kang.resume.common.constant.Constants.BEARER_TOKEN_PREFIX_LENGTH;
+
 import java.io.IOException;
 
 @Component
