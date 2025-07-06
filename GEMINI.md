@@ -130,3 +130,20 @@
 
 *   **Owner**: `kanghouchao`
 *   **Repository**: `JobProfile`
+
+## 8. 关于 Craco 的说明
+
+在前端开发中，我们使用了 `craco` 来覆盖 Create React App 的默认配置，主要目的是为了支持路径别名（例如，`@/components` 代替 `../../components`）。
+
+然而，在尝试配置 Jest 以正确解析模块时，我们遇到了持续的挑战。`craco` 的 Jest 配置似乎存在一些问题，导致 `moduleNameMapper` 无法按预期工作，即使在 `craco.config.js` 或 `package.json` 中进行了各种尝试。
+
+**潜在问题**:
+*   `craco` 在处理 Jest 配置时可能存在 bug，导致模块解析失败。
+*   `replace` 工具在修改 `craco.config.js` 这种复杂配置文件时，由于对精确字符串匹配的要求，容易引入语法错误。
+
+**替代方案考虑**:
+如果 `craco` 的问题无法解决，我们可能需要考虑放弃使用 `craco`。这将意味着：
+*   所有使用 `@` 路径别名的地方都需要手动修改为相对路径。
+*   需要寻找其他方式来配置 Jest，或者直接使用 Create React App 的默认 Jest 配置（如果它能满足需求）。
+
+建议在 `craco` 的 GitHub issues 中查找相关信息，以确认是否存在已知问题和解决方案。
