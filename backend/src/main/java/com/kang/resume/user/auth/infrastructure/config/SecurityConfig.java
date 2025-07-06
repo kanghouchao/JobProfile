@@ -61,13 +61,6 @@ public class SecurityConfig {
      * @return The AuthenticationManager.
      * @throws Exception If an error occurs during configuration.
      */
-    /**
-     * Provides the AuthenticationManager bean.
-     *
-     * @param config The AuthenticationConfiguration.
-     * @return The AuthenticationManager.
-     * @throws Exception If an error occurs during configuration.
-     */
     @Bean
     public AuthenticationManager authenticationManager(final AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();

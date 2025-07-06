@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import Layout from '@/layout';
 import Home from '@/pages/Home';
 import ResumeForm, { JobHistoryForm } from '@/pages/Resume';
@@ -20,7 +20,7 @@ const router = createBrowserRouter(
           path: 'resume',
           element: <ResumeForm />,
           children: [
-            { index: true, element: <ResumeBasicStep /> },
+            { index: true, element: <Navigate to="basic" replace /> },
             { path: 'basic', element: <ResumeBasicStep /> },
             { path: 'history', element: <ResumeHistoryStep /> },
             { path: 'license', element: <ResumeLicenseStep /> },

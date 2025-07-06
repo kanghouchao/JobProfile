@@ -125,3 +125,8 @@
 
 * **后端**：后端使用 `maven-checkstyle-plugin` 来强制执行编码标准。配置可在 `pom.xml` 中找到。
 * **前端**：前端使用 `prettier` 进行代码格式化。您可以通过在 `frontend` 目录中运行 `npm run format` 来格式化代码。
+
+## 7. Project Repository
+
+*   **Owner**: `kanghouchao`
+*   **Repository**: `JobProfile`
