@@ -7,7 +7,6 @@ RUN --mount=type=cache,id=node_modules,target=node_modules npm install
 FROM npm-install AS npm-test
 ARG CI
 ENV CI=${CI}
-COPY craco.config.js craco.config.js
 COPY ./public ./public
 COPY ./src ./src
 RUN --mount=type=cache,id=node_modules,target=node_modules npm run test
@@ -17,7 +16,6 @@ ARG NODE_ENV=development
 COPY .env.${NODE_ENV} .env
 COPY .browserslistrc .browserslistrc
 COPY tailwind.config.js tailwind.config.js
-COPY craco.config.js craco.config.js
 COPY ./public ./public
 COPY ./src ./src
 RUN --mount=type=cache,id=node_modules,target=node_modules NODE_ENV=production npm run build

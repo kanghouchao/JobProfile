@@ -27,7 +27,7 @@ public class ChatAiService implements AiService {
             return objectMapper.readValue(jsonResponse, GenerateResumeResponse.class);
         } catch (final JsonProcessingException e) {
                                     log.error("Error processing JSON from AI: {}", jsonResponse, e);
-            return new GenerateResumeResponse(); // Return an empty response or handle as appropriate
+            return new GenerateResumeResponse("", "", "", "", "", "", "", "", "", "", "", "", ""); // Return an empty response with default values
         }
     }
 }
