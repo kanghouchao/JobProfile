@@ -1,13 +1,13 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-import Layout from '@/layout';
-import Home from '@/pages/Home';
-import ResumeForm, { JobHistoryForm } from '@/pages/Resume';
-import PayPage from '@/pages/Pay';
-import Register, { Login, PasswordSetting, RegisterSuccess, ForgotPassword } from '@/pages/Auth';
-import ResumeBasicStep from '@/pages/Resume/ResumeBasicStep';
-import ResumeHistoryStep from '@/pages/Resume/ResumeHistoryStep';
-import ResumeLicenseStep from '@/pages/Resume/ResumeLicenseStep';
-import ResumePRStep from '@/pages/Resume/ResumePRStep';
+import Layout from './layout';
+import Home from './pages/Home';
+import ResumeForm, { JobHistoryForm } from './pages/Resume';
+import PayPage from './pages/Pay';
+import Register, { Login, PasswordSetting, RegisterSuccess, ForgotPassword } from './pages/Auth';
+import ResumeBasicStep from './pages/Resume/ResumeBasicStep';
+import ResumeHistoryStep from './pages/Resume/ResumeHistoryStep';
+import ResumeLicenseStep from './pages/Resume/ResumeLicenseStep';
+import ResumePRStep from './pages/Resume/ResumePRStep';
 
 const router = createBrowserRouter(
   [

@@ -26,7 +26,7 @@
 ### 前端
 
 * **框架**：React
-* **构建工具**：Create React App，使用 `craco` 进行配置覆盖
+* **构建工具**：Create React App
 * **样式**：Tailwind CSS
 * **路由**：`react-router-dom`
 * **国际化 (i18n)**：`i18next`
@@ -130,20 +130,63 @@
 
 *   **Owner**: `kanghouchao`
 *   **Repository**: `JobProfile`
+*   **URL**: `https://github.com/kanghouchao/JobProfile`
 
-## 8. 关于 Craco 的说明
+## 8. 前端模块化与路径管理
 
-在前端开发中，我们使用了 `craco` 来覆盖 Create React App 的默认配置，主要目的是为了支持路径别名（例如，`@/components` 代替 `../../components`）。
+### 8.1 历史背景与别名移除
 
-然而，在尝试配置 Jest 以正确解析模块时，我们遇到了持续的挑战。`craco` 的 Jest 配置似乎存在一些问题，导致 `moduleNameMapper` 无法按预期工作，即使在 `craco.config.js` 或 `package.json` 中进行了各种尝试。
+项目早期曾尝试引入 `craco` (`@craco/craco`) 以支持 `@` 路径别名，旨在简化模块导入。然而，`craco` 的引入导致了前端单元测试（Jest）的严重兼容性问题，且该项目长期缺乏维护。
 
-**潜在问题**:
-*   `craco` 在处理 Jest 配置时可能存在 bug，导致模块解析失败。
-*   `replace` 工具在修改 `craco.config.js` 这种复杂配置文件时，由于对精确字符串匹配的要求，容易引入语法错误。
+为了确保项目健康和测试环境的稳定性，我们决定**彻底移除前端单元测试**，并**放弃使用 `@` 路径别名**。所有代码库中原先使用 `@` 别名的路径均已重构为相对路径，以确保模块导入的明确性和兼容性。
 
-**替代方案考虑**:
-如果 `craco` 的问题无法解决，我们可能需要考虑放弃使用 `craco`。这将意味着：
-*   所有使用 `@` 路径别名的地方都需要手动修改为相对路径。
-*   需要寻找其他方式来配置 Jest，或者直接使用 Create React App 的默认 Jest 配置（如果它能满足需求）。
+### 8.2 单元测试移除详情
 
-建议在 `craco` 的 GitHub issues 中查找相关信息，以确认是否存在已知问题和解决方案。
+为了精简项目并解决兼容性问题，我们已执行以下操作，彻底移除了前端单元测试相关内容：
+
+*   删除了 `frontend/jest.config.js`。
+*   删除了 `frontend/src/__mocks__` 目录及其内容。
+*   删除了 `frontend/src/pages/Auth/__tests__` 目录及其内容。
+*   删除了 `frontend/src/setupTests.js`。
+*   删除了 `frontend/babel.config.js`。
+*   更新了 `frontend/package.json`，移除了所有与测试相关的 `scripts` 和 `devDependencies`（包括 `@testing-library`、`jest`、`babel-jest`、`@babel/preset-env`、`@babel/preset-react` 等）。
+*   移除了 `frontend/node_modules` 和 `frontend/package-lock.json`，以确保依赖的完全清理。
+
+### 8.3 路径别名重构详情
+
+所有在 `frontend/src` 目录下使用 `@` 别名的模块导入路径均已成功重构为相对路径。受影响的主要文件包括：
+
+*   `src/App.js`
+*   `src/config/i18n.js`
+*   `src/index.js`
+*   `src/layout.js`
+*   `src/pages/Auth/Login.jsx`
+*   `src/pages/Auth/PasswordSetting.jsx`
+*   `src/pages/Auth/Register.jsx`
+*   `src/pages/Auth/index.js`
+*   `src/pages/Home/Home.jsx`
+*   `src/pages/Home/index.js`
+*   `src/pages/Pay/index.js`
+*   `src/pages/Resume/index.js`
+*   `src/router.js`
+*   `src/services/ai/index.js`
+
+通过这些更改，项目现在拥有一个更简洁、更稳定的前端环境，专注于核心业务逻辑的开发.
+
+## 9. 前端架构与当前任务
+
+### 9.1 布局 (layout.js)
+在用户登录或注册后，所有页面都由 `frontend/src/layout.js` 文件进行统一布局管理。该布局将页面划分为三个主要部分：
+1.  **页眉 (Header)**：位于顶部，用于显示当前页面的标题和一个最新消息按钮（该按钮功能尚未完全实现）。
+2.  **侧边菜单栏 (Sidebar)**：位于左侧，提供不同页面模块之间的导航。
+3.  **内容区 (Outlet)**：位于右下角，用于渲染当前路由匹配的页面组件。
+
+### 9.2 当前核心任务 (PR #3)
+当前的核心开发任务是**“前端简历录入页面改版：分步录入与AI对话集成”**。
+
+**主要目标**：将原有的单页简历填写形式，改造为一个多步骤的向导式（Wizard）表单，并集成一个AI对话界面以辅助用户填写。
+
+**关键实现点**：
+*   **分步式表单**：将简历录入拆分为四个步骤：基本信息、学历/工作经历、证书/资格、自我介绍。每一步都是一个独立的组件，并拥有独立的URL（例如 `/resume/basic`）。
+*   **AI 对话集成**：在简历填写页面采用左右分栏布局，左侧为AI对话区域，右侧为表单填写区域，允许用户在填写的任何阶段与AI进行交互。
+*   **UI/UX 改进**：实现响应式布局，并确保在不同步骤之间切换时，已填写的表单数据能够被完整保留。

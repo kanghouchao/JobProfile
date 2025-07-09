@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { FaMicrophone, FaFileImport, FaTrash } from 'react-icons/fa';
-import createAiService from '@/services/ai';
+import createAiService from '../../services/ai';
 
 export default function ChatGPTInterface() {
   const [input, setInput] = useState('');

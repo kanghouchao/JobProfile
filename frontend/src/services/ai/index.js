@@ -1,4 +1,4 @@
-import createHttpClient from '@/config/HttpClient';
+import createHttpClient from '../../config/HttpClient';
 
 const createAiService = (hc = createHttpClient('v1')) => ({
     generate: async userInfo => {

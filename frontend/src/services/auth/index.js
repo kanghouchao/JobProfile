@@ -1,4 +1,4 @@
-import createHttpClient from '@/config/HttpClient';
+import createHttpClient from '../../config/HttpClient';
 
 const createAuthService = (hc = createHttpClient('v1')) => ({
     // ログインAPI v1を使用
